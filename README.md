@@ -25,6 +25,12 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [caveman](./context-standards/caveman/) | 压缩通信模式，减少 ~75% token 消耗 |
 | [handoff](./context-standards/handoff/) | 会话交接，生成可被新 agent 继续的文档 |
 
+### [办公工具](./office-tool/) — 文档解析
+
+| Skill | 用途 |
+|-------|------|
+| [liteparse](./office-tool/liteparse/) | 本地 PDF 解析，支持批量处理 |
+
 ## 安装
 
 将 Skill 目录复制到 `~/.qwen/skills/` 下即可使用。
