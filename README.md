@@ -16,6 +16,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | Skill | 用途 |
 |-------|------|
 | [docx](./office-tool/docx/) | Word 文档创建、编辑、格式化 |
+| [markdown-to-epub](./office-tool/markdown-to-epub/) | Markdown 转 EPUB 电子书，支持 Kindle |
 | [pdf](./office-tool/pdf/) | PDF 读取、合并、拆分、表单填写、OCR |
 | [pptx](./office-tool/pptx/) | PowerPoint 演示文稿创建和编辑 |
 | [xlsx](./office-tool/xlsx/) | 电子表格处理，支持公式、图表、数据清洗 |
@@ -41,6 +42,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 
 | Skill | 用途 |
 |-------|------|
+| [dir-organizer](./common/dir-organizer/) | 整理和优化项目目录结构 |
 | [skill-creator](./common/skill-creator/) | 创建、编辑、优化 Skill，运行性能测试 |
 | [teach](./common/teach/) | 在工作区内教授用户新技能或概念 |
 
