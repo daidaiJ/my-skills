@@ -36,7 +36,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [caveman](./context-standards/caveman/) | 压缩通信模式，减少 ~75% token 消耗 |
 | [grill-me](./context-standards/grill-me/) | 方案压力测试，逐条审视设计决策 |
 | [handoff](./context-standards/handoff/) | 会话交接，生成可被新 agent 继续的文档 |
-| [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然 |
+| [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文） |
 
 ### [通用工具](./common/) — Skill 开发和管理
 

@@ -1,9 +1,6 @@
 ---
 name: stop-slop
-description: Remove AI writing patterns from prose. Use when drafting, editing, or reviewing text to eliminate predictable AI tells.
-metadata:
-  trigger: Writing prose, editing drafts, reviewing content for AI patterns
-  author: Hardik Pandya (https://hvpandya.com)
+description: Use when drafting, editing, or reviewing prose to eliminate predictable AI writing patterns. Detects filler phrases, formulaic structures, passive constructions, vague declaratives, and rhythm monotony. Supports both English and Chinese text.
 ---
 
 # Stop Slop
@@ -13,41 +10,36 @@ Eliminate predictable AI writing patterns from prose.
 ## Core Rules
 
 1. **Cut filler phrases.** Remove throat-clearing openers, emphasis crutches, and all adverbs. See [references/phrases.md](references/phrases.md).
-
 2. **Break formulaic structures.** Avoid binary contrasts, negative listings, dramatic fragmentation, rhetorical setups, false agency. See [references/structures.md](references/structures.md).
-
-3. **Use active voice.** Every sentence needs a human subject doing something. No passive constructions. No inanimate objects performing human actions ("the complaint becomes a fix").
-
-4. **Be specific.** No vague declaratives ("The reasons are structural"). Name the specific thing. No lazy extremes ("every," "always," "never") doing vague work.
-
-5. **Put the reader in the room.** No narrator-from-a-distance voice. "You" beats "People." Specifics beat abstractions.
-
-6. **Vary rhythm.** Mix sentence lengths. Two items beat three. End paragraphs differently. No em dashes.
-
-7. **Trust readers.** State facts directly. Skip softening, justification, hand-holding.
-
+3. **Use active voice.** Every sentence needs a human subject. No passive constructions. No inanimate objects performing human actions.
+4. **Be specific.** Name the thing. No vague declaratives, no lazy extremes ("every," "always," "never").
+5. **Put the reader in the room.** "You" beats "People." Specifics beat abstractions.
+6. **Vary rhythm.** Mix sentence lengths. Two items beat three. No em dashes.
+7. **Trust readers.** State facts directly. Skip softening and justification.
 8. **Cut quotables.** If it sounds like a pull-quote, rewrite it.
 
 ## Quick Checks
 
-Before delivering prose:
+Before delivering prose, scan for these. Fix any that appear.
 
-- Any adverbs? Kill them.
-- Any passive voice? Find the actor, make them the subject.
-- Inanimate thing doing a human verb ("the decision emerges")? Name the person.
-- Sentence starts with a Wh- word? Restructure it.
-- Any "here's what/this/that" throat-clearing? Cut to the point.
-- Any "not X, it's Y" contrasts? State Y directly.
-- Three consecutive sentences match length? Break one.
-- Paragraph ends with punchy one-liner? Vary it.
-- Em-dash anywhere? Remove it.
-- Vague declarative ("The implications are significant")? Name the specific implication.
-- Narrator-from-a-distance ("Nobody designed this")? Put the reader in the scene.
-- Meta-joiners ("The rest of this essay...")? Delete. Let the essay move.
+| Check | Action |
+|-------|--------|
+| Adverbs | Kill them |
+| Passive voice | Find the actor, make them the subject |
+| Inanimate thing doing a human verb | Name the person |
+| Sentence starts with Wh- word | Restructure |
+| "Here's what/this/that" throat-clearing | Cut to the point |
+| "Not X, it's Y" contrast | State Y directly |
+| Three consecutive sentences same length | Break one |
+| Paragraph ends with punchy one-liner | Vary it |
+| Em-dash | Remove |
+| Vague declarative | Name the specific thing |
+| Narrator-from-a-distance | Put the reader in the scene |
+| Meta-joiners ("The rest of this essay...") | Delete |
 
 ## Scoring
 
-Rate 1-10 on each dimension:
+Rate 1-10 on each dimension. Below 35/50: revise.
 
 | Dimension | Question |
 |-----------|----------|
@@ -57,12 +49,9 @@ Rate 1-10 on each dimension:
 | Authenticity | Sounds human? |
 | Density | Anything cuttable? |
 
-Below 35/50: revise.
+## References
 
-## Examples
-
-See [references/examples.md](references/examples.md) for before/after transformations.
-
-## License
-
-MIT
+- [references/phrases.md](references/phrases.md) — Phrases to remove (filler, jargon, adverbs, meta-commentary)
+- [references/structures.md](references/structures.md) — Structures to avoid (contrasts, fragmentation, false agency, rhythm)
+- [references/examples.md](references/examples.md) — Before/after transformations
+- [references/ai-patterns-zh.md](references/ai-patterns-zh.md) — 中文 AI 写作模式（高频词、套话句式、句式结构）

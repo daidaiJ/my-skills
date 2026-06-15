@@ -1,5 +1,7 @@
 # Phrases to Remove
 
+> 中文对应模式见 [ai-patterns-zh.md](ai-patterns-zh.md)。
+
 ## Throat-Clearing Openers
 
 Remove these announcement phrases. State the content directly.

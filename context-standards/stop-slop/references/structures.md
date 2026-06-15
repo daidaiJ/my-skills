@@ -1,5 +1,7 @@
 # Structures to Avoid
 
+> 中文对应模式见 [ai-patterns-zh.md](ai-patterns-zh.md)。
+
 ## Binary Contrasts
 
 These create false drama. State the point directly.
