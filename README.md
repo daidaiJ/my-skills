@@ -69,4 +69,14 @@ cp -r dev-tools/codegraph ~/.qwen/skills/codegraph
 ```bash
 # codegraph
 npm i -g @colbymchenry/codegraph
+
+# ffmpeg（视频/音频处理）
+# Windows: scoop install ffmpeg  或  choco install ffmpeg
+# macOS:   brew install ffmpeg
+# Linux:   sudo apt install ffmpeg
+
+# imagemagick（图片处理）
+# Windows: scoop install imagemagick  或  choco install imagemagick
+# macOS:   brew install imagemagick
+# Linux:   sudo apt install imagemagick
 ```
