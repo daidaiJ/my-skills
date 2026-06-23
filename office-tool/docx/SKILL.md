@@ -14,9 +14,20 @@ A .docx file is a ZIP archive containing XML files.
 
 | Task | Approach |
 |------|----------|
-| Read/analyze content | `pandoc` or unpack for raw XML |
+| Edit or fill a template | Read [editing.md](editing.md) — **read this first when a template is attached** |
 | Create new document | Use `docx-js` - see Creating New Documents below |
+| Read/analyze content | `pandoc` or unpack for raw XML |
 | Edit existing document | Unpack → edit XML → repack - see Editing Existing Documents below |
+
+## When Given a Template — Read editing.md
+
+**If a .docx or .dotx template is attached, you MUST read [editing.md](editing.md) before doing anything.** It contains the full workflow, all scripts, and pitfalls.
+
+Key points:
+- **Edit the template directly** — unpack, use scripts to replace text, repack
+- **Never create from scratch** when a template exists
+- **Never edit XML directly** — use `replace_text.py`, `replace_field.py`, `delete_sections.py`
+- **.dotx files work the same as .docx** — `unpack.py` handles both
 
 ### Converting .doc to .docx
 

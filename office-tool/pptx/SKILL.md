@@ -12,9 +12,26 @@ license: Proprietary. LICENSE.txt has complete terms
 |------|-------|
 | Read/analyze content | `python -m markitdown presentation.pptx` |
 | Edit or create from template | Read [editing.md](editing.md) |
-| Create from scratch | Read [pptxgenjs.md](pptxgenjs.md) |
+| Create from scratch (with templates) | Read [creating.md](creating.md) — **193 pre-built templates available** |
+| Create from scratch (API reference) | Read [pptxgenjs.md](pptxgenjs.md) |
 
 ---
+
+## Pre-built Templates (193 available)
+
+**PREFER starting from a pre-built template.** The `templates/` directory contains 193 professional PptxGenJS templates. Use the search script to find the best match:
+
+```bash
+# Keyword search
+python3 scripts/search_templates.py white luxury
+python3 scripts/search_templates.py corporate finance
+
+# Field-specific filters
+python3 scripts/search_templates.py --typography serif
+python3 scripts/search_templates.py --mood corporate --density data-heavy
+```
+
+See [creating.md](creating.md) for the full template workflow.
 
 ## Reading Content
 
@@ -160,6 +177,20 @@ python -m markitdown output.pptx | grep -iE "xxxx|lorem|ipsum|this.*(page|slide)
 
 If grep returns results, fix them before declaring success.
 
+### Automated Checks
+
+Run these before visual inspection to catch common issues automatically:
+
+```bash
+python scripts/detect_fonts.py output.pptx
+python scripts/office/unpack.py output.pptx unpacked/
+python scripts/check_overlaps.py unpacked/ --fix
+python scripts/clean.py unpacked/
+python scripts/office/pack.py unpacked/ final_output.pptx --original output.pptx
+```
+
+Fix any issues these report before proceeding to visual QA.
+
 ### Visual QA
 
 **⚠️ USE SUBAGENTS** — even for 2-3 slides. You've been staring at the code and will see what you expect, not what's there. Subagents have fresh eyes.
@@ -207,6 +238,16 @@ Report ALL issues found, including minor ones.
 ## Converting to Images
 
 Convert presentations to individual slide images for visual inspection:
+
+```bash
+# Preferred — auto-calculates DPI from slide dimensions
+python scripts/render_slides.py output.pptx
+
+# Or with custom target resolution
+python scripts/render_slides.py output.pptx --output_dir slides/ --width 1920 --height 1080
+```
+
+**Fallback** (if render_slides.py dependencies aren't available):
 
 ```bash
 python scripts/office/soffice.py --headless --convert-to pdf output.pptx

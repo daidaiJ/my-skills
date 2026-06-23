@@ -11,15 +11,22 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [codegraph](./dev-tools/codegraph/) | 代码知识图谱，符号搜索/调用链追踪/变更影响分析 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
 
+### [媒体处理](./media-tool/) — 音视频和图片处理
+
+| Skill | 用途 |
+|-------|------|
+| [ffmpeg](./media-tool/ffmpeg/) | 视频/音频处理：合并、裁剪、转码、提取帧/音频、GIF、字幕 |
+| [imagemagick](./media-tool/imagemagick/) | 图片处理：调整大小、裁剪、格式转换、水印、合成、批处理 |
+
 ### [办公工具](./office-tool/) — 文档处理全家桶
 
 | Skill | 用途 |
 |-------|------|
-| [docx](./office-tool/docx/) | Word 文档创建、编辑、格式化 |
+| [docx](./office-tool/docx/) | Word 文档创建、编辑、模板填写（.docx/.dotx） |
 | [markdown-to-epub](./office-tool/markdown-to-epub/) | Markdown 转 EPUB 电子书，支持 Kindle |
-| [pdf](./office-tool/pdf/) | PDF 读取、合并、拆分、表单填写、OCR |
-| [pptx](./office-tool/pptx/) | PowerPoint 演示文稿创建和编辑 |
-| [xlsx](./office-tool/xlsx/) | 电子表格处理，支持公式、图表、数据清洗 |
+| [pdf](./office-tool/pdf/) | PDF 读取、合并、拆分、表单填写、OCR、图片插入、表格创建 |
+| [pptx](./office-tool/pptx/) | PowerPoint 演示文稿，含 193 个预置模板和 QA 工具链 |
+| [xlsx](./office-tool/xlsx/) | 电子表格处理，支持公式、图表、复杂表格填写 |
 | [liteparse](./office-tool/liteparse/) | 轻量 PDF 文本提取，本地处理无依赖 |
 
 ### [规划与设计](./planning/) — 需求分析和方案设计

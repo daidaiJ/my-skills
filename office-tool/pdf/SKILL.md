@@ -186,6 +186,138 @@ squared = Paragraph("x<super>2</super> + y<super>2</super>", styles['Normal'])
 
 For canvas-drawn text (not Paragraph objects), manually adjust font the size and position rather than using Unicode subscripts/superscripts.
 
+#### Add Images with `canvas.drawImage`
+```python
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfgen import canvas
+
+c = canvas.Canvas("image-demo.pdf", pagesize=letter)
+page_w, page_h = letter
+
+img = ImageReader("chart.png")  # drawImage accepts a filename or ImageReader
+img_w, img_h = img.getSize()
+
+target_w = 4.5 * inch
+target_h = target_w * (img_h / img_w)  # Preserve aspect ratio
+
+# PDF canvas coordinates use a bottom-left origin.
+# To place the image 1 inch below the top edge, subtract the image height.
+x = inch
+y = page_h - inch - target_h
+
+c.drawImage(img, x, y, width=target_w, height=target_h)
+c.save()
+```
+
+#### Fit an Image into a Fixed Box
+```python
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
+
+c = canvas.Canvas("boxed-image.pdf", pagesize=letter)
+page_w, page_h = letter
+
+box_x = inch
+box_y = page_h - 5 * inch
+box_w = 4 * inch
+box_h = 3 * inch
+
+c.drawImage(
+    "photo.jpg",
+    box_x,
+    box_y,
+    width=box_w,
+    height=box_h,
+    preserveAspectRatio=True,
+    anchor="c",
+)
+c.save()
+```
+
+#### Add Images in Platypus
+```python
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.lib.utils import ImageReader
+from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer
+
+doc = SimpleDocTemplate("report.pdf", pagesize=letter)
+styles = getSampleStyleSheet()
+
+img = ImageReader("logo.png")
+img_w, img_h = img.getSize()
+target_w = 2 * inch
+target_h = target_w * (img_h / img_w)
+
+story = [
+    Paragraph("Quarterly Update", styles["Title"]),
+    Spacer(1, 12),
+    Image("logo.png", width=target_w, height=target_h, hAlign="CENTER"),
+]
+
+doc.build(story)
+```
+
+#### Image Rules
+
+- **Preserve aspect ratio** - compute the missing dimension from the source image size, or use `preserveAspectRatio=True` when fitting into a fixed box
+- **Canvas coordinates are bottom-left based** - `x` and `y` are measured from the lower-left corner of the page
+- **Platypus images are flowables** - they flow with the document layout and do not use absolute page coordinates
+- **Prefer `drawImage` over `drawInlineImage`** - it reuses external image objects and is usually smaller/faster for repeated images
+
+#### Create Tables
+
+**Always wrap table cell text in `Paragraph` objects.** Plain strings inside `Table` cells do not wrap — long content overflows the cell, overlaps neighbors, or pushes off the page. Wrapping every cell (including headers and short values) in a `Paragraph` keeps wrapping behavior consistent and lets you use inline markup like `<b>`, `<i>`, `<sub>`, and `<super>`.
+
+**Size columns proportionally to expected content length.** Uniform column widths produce squished columns with excessive wrapping when content sizes differ. Give wide-text columns most of the available width and keep narrow columns (IDs, numbers, short labels) small.
+
+```python
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, TableStyle
+
+doc = SimpleDocTemplate("table.pdf", pagesize=letter)
+styles = getSampleStyleSheet()
+cell = styles["BodyText"]
+
+# Wrap every cell value in a Paragraph so it wraps within the column width.
+data = [
+    [Paragraph("<b>ID</b>", cell),
+     Paragraph("<b>Name</b>", cell),
+     Paragraph("<b>Description</b>", cell)],
+    [Paragraph("1", cell),
+     Paragraph("Widget", cell),
+     Paragraph("A long description that needs to wrap across multiple lines without overflowing the cell.", cell)],
+]
+
+# Allocate column widths proportional to expected content length.
+# Letter is 8.5" wide; with 1" margins, total <= 6.5".
+col_widths = [0.5 * inch, 1.5 * inch, 4.5 * inch]
+
+table = Table(data, colWidths=col_widths, repeatRows=1)
+table.setStyle(TableStyle([
+    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+    ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+]))
+
+doc.build([table])
+```
+
+**Rules:**
+- Wrap **every** cell value in a `Paragraph` — even headers and short strings — so wrapping is uniform and inline markup works.
+- Always pass explicit `colWidths` sized in proportion to the longest expected content per column. Columns that hold paragraphs of prose should get the bulk of the width; columns holding short labels or numbers should be narrow.
+- Total `colWidths` must fit the printable area (e.g., letter with 1" margins ~= 6.5"; landscape letter ~= 9").
+- Set `("VALIGN", (0, 0), (-1, -1), "TOP")` so wrapped rows align cleanly at the top instead of floating in the middle of the cell.
+- Use `repeatRows=1` so the header row is repeated when the table breaks across pages.
+- For very wide content, switch the page to `landscape(letter)` rather than shrinking columns into illegibility.
+
 ## Command-Line Tools
 
 ### pdftotext (poppler-utils)
@@ -276,6 +408,12 @@ pdfimages -j input.pdf output_prefix
 # This extracts all images as output_prefix-000.jpg, output_prefix-001.jpg, etc.
 ```
 
+### Extraction vs. Rasterization
+
+- **Use `pdfimages` for extraction** - this pulls out original embedded bitmap assets from the PDF without rendering the page
+- **Use `pdftoppm` or `pdf2image` for rasterization** - this renders the full page appearance to pixels, including text, vector graphics, annotations, and layout
+- **Rendered pages are not extracted images** - converting a PDF page to PNG/JPG gives you a screenshot of the page, not the original embedded image objects
+
 ### Password Protection
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -302,9 +440,32 @@ with open("encrypted.pdf", "wb") as output:
 | Extract text | pdfplumber | `page.extract_text()` |
 | Extract tables | pdfplumber | `page.extract_tables()` |
 | Create PDFs | reportlab | Canvas or Platypus |
+| Add tables to PDFs | reportlab | Wrap cells in `Paragraph`; size `colWidths` to content |
+| Add images to PDFs | reportlab | `canvas.drawImage(...)` or Platypus `Image(...)` |
+| Extract embedded images | pdfimages | `pdfimages -all input.pdf prefix` |
+| Render pages to images | `pdftoppm` / `pdf2image` | Page snapshots for QA, OCR, or previews |
 | Command line merge | qpdf | `qpdf --empty --pages ...` |
 | OCR scanned PDFs | pytesseract | Convert to image first |
 | Fill PDF forms | pdf-lib or pypdf (see FORMS.md) | See FORMS.md |
+
+## Visual Verification with pdftoppm
+
+After filling PDF form fields or making any modifications, always render each page to a PNG screenshot and visually verify the result. Field name mappings are often wrong, so visual checks are essential.
+
+```bash
+# Render page 1 at 300 DPI
+pdftoppm -png -r 300 -f 1 -l 1 output.pdf /tmp/verify
+```
+
+Then use `read_file` on `/tmp/verify-1.png` to see the rendered page. Check that each value appears next to its correct label. Repeat for each page:
+
+```bash
+# Render page 2
+pdftoppm -png -r 300 -f 2 -l 2 output.pdf /tmp/verify_p2
+# Then read_file /tmp/verify_p2-2.png
+```
+
+This catches misplaced values, overlapping text, and incorrect field mappings that are invisible when only inspecting the raw PDF structure.
 
 ## Next Steps
 

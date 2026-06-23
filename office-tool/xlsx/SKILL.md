@@ -262,6 +262,239 @@ The script returns JSON with error details:
 }
 ```
 
+## Filling Data Into Complex Table Templates
+
+Real-world spreadsheets often have complex layouts that don't map to simple row/column data. **Always inspect the template structure before writing any code.**
+
+### Step 1: Inspect the Template Structure
+
+```python
+from openpyxl import load_workbook
+
+wb = load_workbook('template.xlsx')
+ws = wb.active
+
+# 1. Find all merged cells
+print("Merged ranges:", list(ws.merged_cells.ranges))
+
+# 2. Dump a region to see the layout (adjust range as needed)
+for row in ws.iter_rows(min_row=1, max_row=20, max_col=10, values_only=False):
+    for cell in row:
+        if cell.value is not None:
+            print(f"  {cell.coordinate}: {cell.value!r} (merged={cell.coordinate in {str(c) for mc in ws.merged_cells.ranges for c in mc.cells}})")
+
+# 3. Check which cells have borders/fills (data entry cells often differ)
+from openpyxl.styles import PatternFill
+for row in ws.iter_rows(min_row=1, max_row=20, max_col=10):
+    for cell in row:
+        fill = cell.fill
+        if fill and fill.fgColor and fill.fgColor.rgb and fill.fgColor.rgb != '00000000':
+            print(f"  {cell.coordinate}: fill={fill.fgColor.rgb}")
+```
+
+### Pattern A: Alternating Header/Data Rows
+
+```
+Row 1: [Category Header]  [Q1]    [Q2]    [Q3]    [Q4]
+Row 2: [Revenue]           [   ]   [   ]   [   ]   [   ]   ← data entry
+Row 3: [Expenses]          [   ]   [   ]   [   ]   [   ]   ← data entry
+Row 4: [Category Header]  [Q1]    [Q2]    [Q3]    [Q4]
+Row 5: [Headcount]         [   ]   [   ]   [   ]   [   ]   ← data entry
+Row 6: [Churn Rate]        [   ]   [   ]   [   ]   [   ]   ← data entry
+```
+
+**Strategy:** Identify the pattern programmatically, then fill only the data rows.
+
+```python
+from openpyxl import load_workbook
+
+wb = load_workbook('template.xlsx')
+ws = wb.active
+
+# Detect header rows vs data rows by checking if column A has bold text
+header_rows = set()
+data_rows = []
+for row_idx in range(1, ws.max_row + 1):
+    cell = ws.cell(row=row_idx, column=1)
+    if cell.font and cell.font.bold:
+        header_rows.add(row_idx)
+    elif cell.value is not None:
+        data_rows.append(row_idx)
+
+# Fill data rows only
+data_to_fill = {
+    'Revenue': [100, 120, 130, 150],
+    'Expenses': [80, 90, 85, 95],
+    'Headcount': [10, 12, 12, 14],
+    'Churn Rate': [0.05, 0.04, 0.03, 0.03],
+}
+
+for row_idx in data_rows:
+    label = ws.cell(row=row_idx, column=1).value
+    if label in data_to_fill:
+        for col_offset, val in enumerate(data_to_fill[label]):
+            ws.cell(row=row_idx, column=2 + col_offset).value = val
+
+wb.save('filled.xlsx')
+```
+
+### Pattern B: Left Column Headers + Top Row Headers (Cross-Tab)
+
+```
+         [Jan]   [Feb]   [Mar]
+[Sales]  [   ]   [   ]   [   ]
+[Cost]   [   ]   [   ]   [   ]
+[Profit] [   ]   [   ]   [   ]
+```
+
+**Strategy:** Find the intersection of row label and column label.
+
+```python
+from openpyxl import load_workbook
+
+wb = load_workbook('template.xlsx')
+ws = wb.active
+
+# Find header row (the row with month names)
+header_row = None
+row_labels = {}  # row_idx -> label
+for row_idx in range(1, ws.max_row + 1):
+    for col_idx in range(1, ws.max_column + 1):
+        val = ws.cell(row=row_idx, column=col_idx).value
+        if val and str(val).strip() in ('Jan', 'Feb', 'Mar', 'Q1', 'Q2'):
+            header_row = row_idx
+            break
+    if header_row:
+        break
+
+# Map column headers
+col_map = {}  # header_text -> col_idx
+for col_idx in range(1, ws.max_column + 1):
+    val = ws.cell(row=header_row, column=col_idx).value
+    if val:
+        col_map[str(val).strip()] = col_idx
+
+# Map row labels
+for row_idx in range(header_row + 1, ws.max_row + 1):
+    val = ws.cell(row=row_idx, column=1).value
+    if val:
+        row_labels[str(val).strip()] = row_idx
+
+# Fill by label intersection
+values = {
+    ('Sales', 'Jan'): 1000,
+    ('Sales', 'Feb'): 1200,
+    ('Sales', 'Mar'): 1100,
+    ('Cost', 'Jan'): 600,
+    ('Cost', 'Feb'): 700,
+    ('Cost', 'Mar'): 650,
+}
+for (row_label, col_label), val in values.items():
+    r = row_labels.get(row_label)
+    c = col_map.get(col_label)
+    if r and c:
+        ws.cell(row=r, column=c).value = val
+
+wb.save('filled.xlsx')
+```
+
+### Pattern C: Multi-Level Row Headers (Grouped Rows)
+
+```
+[Region A]                          ← group header (merged A:B)
+  [Product X]  [100]  [200]        ← data row
+  [Product Y]  [150]  [250]        ← data row
+[Region B]                          ← group header (merged A:B)
+  [Product X]  [300]  [400]        ← data row
+```
+
+**Strategy:** Detect merged cells in column A to identify group boundaries, then fill non-merged, non-empty rows.
+
+```python
+from openpyxl import load_workbook
+
+wb = load_workbook('template.xlsx')
+ws = wb.active
+
+merged_a = {r for mc in ws.merged_cells.ranges for r in mc.rows if mc.min_col == 1}
+
+for row_idx in range(1, ws.max_row + 1):
+    cell_a = ws.cell(row=row_idx, column=1)
+    # Skip merged cells (group headers) and empty rows
+    if row_idx in merged_a or cell_a.value is None:
+        continue
+    # This is a data row — fill it
+    # cell_a.value is the product name, fill columns B, C, etc.
+    ws.cell(row=row_idx, column=2).value = get_sales(cell_a.value)
+    ws.cell(row=row_idx, column=3).value = get_target(cell_a.value)
+
+wb.save('filled.xlsx')
+```
+
+### Pattern D: Multi-Level Column Headers
+
+```
+Row 1: [         ]  [Revenue      ]  [Expenses     ]
+Row 2: [         ]  [Actual] [Plan]  [Actual] [Plan]
+Row 3: [Q1 2025  ]  [   ]    [   ]   [   ]    [   ]
+Row 4: [Q2 2025  ]  [   ]    [   ]   [   ]    [   ]
+```
+
+**Strategy:** Build a column map from the leaf header row (row 2), using combined parent+child labels.
+
+```python
+from openpyxl import load_workbook
+
+wb = load_workbook('template.xlsx')
+ws = wb.active
+
+# Find the leaf header row (the one with the most non-empty cells)
+header_rows = []
+for r in range(1, 4):
+    non_empty = sum(1 for c in range(1, ws.max_column + 1) if ws.cell(r, c).value)
+    header_rows.append((r, non_empty))
+
+leaf_row = max(header_rows, key=lambda x: x[1])[0]
+parent_row = leaf_row - 1
+
+# Build column map: "Revenue - Actual" -> col_idx
+col_map = {}
+current_parent = None
+for col_idx in range(1, ws.max_column + 1):
+    parent_val = ws.cell(row=parent_row, column=col_idx).value
+    if parent_val:
+        current_parent = str(parent_val).strip()
+    child_val = ws.cell(row=leaf_row, column=col_idx).value
+    if child_val:
+        key = f"{current_parent} - {str(child_val).strip()}"
+        col_map[key] = col_idx
+
+# Fill data
+data = {
+    'Q1 2025': {'Revenue - Actual': 100, 'Revenue - Plan': 110, 'Expenses - Actual': 60, 'Expenses - Plan': 65},
+    'Q2 2025': {'Revenue - Actual': 120, 'Revenue - Plan': 115, 'Expenses - Actual': 70, 'Expenses - Plan': 68},
+}
+
+for row_idx in range(leaf_row + 1, ws.max_row + 1):
+    label = ws.cell(row=row_idx, column=1).value
+    if label and str(label).strip() in data:
+        for col_key, val in data[str(label).strip()].items():
+            c = col_map.get(col_key)
+            if c:
+                ws.cell(row=row_idx, column=c).value = val
+
+wb.save('filled.xlsx')
+```
+
+### General Rules for Complex Templates
+
+1. **Always inspect first** — never assume the layout; read merged cells, headers, and formatting
+2. **Don't unmerge cells** — use `ws.merged_cells.ranges` to detect them and skip accordingly
+3. **Fill by label matching, not by hard-coded row/column numbers** — templates may have variable row counts
+4. **Preserve formatting** — only write to `.value`, don't modify `.font`, `.fill`, `.alignment` unless needed
+5. **Handle `None` cells in merged ranges** — only the top-left cell of a merged range has a value; the rest return `None`
+6. **Test with a small region first** — verify 2-3 cells are correct before filling the entire template
+
 ## Best Practices
 
 ### Library Selection
