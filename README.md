@@ -52,6 +52,13 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [skill-creator](./common/skill-creator/) | 创建、编辑、优化 Skill，运行性能测试 |
 | [teach](./common/teach/) | 在工作区内教授用户新技能或概念 |
 
+### [分析工具](./analyzer/) — Skill 质量和安全分析
+
+| Skill | 用途 |
+|-------|------|
+| [skill-quality-analyzer](./analyzer/skill-quality-analyzer/) | Skill 质量分析：五维度评估（结构/安全/UX/代码/集成），支持综合报告、交互审查、认证三种模式 |
+| [skill-security-analyzer](./analyzer/skill-security-analyzer/) | Skill 安全扫描：检测 40+ 恶意模式（命令注入、YAML 注入、数据泄露、时间炸弹、typosquatting 等） |
+
 ## 安装
 
 将 Skill 目录复制到 `~/.qwen/skills/` 下即可使用。
@@ -78,4 +85,8 @@ npm i -g @colbymchenry/codegraph
 # Windows: scoop install imagemagick  或  choco install imagemagick
 # macOS:   brew install imagemagick
 # Linux:   sudo apt install imagemagick
+
+# skill-security-analyzer（安全扫描）
+# 需要 Python 3.8+，依赖已内置（PyYAML）
+python3 --version
 ```
