@@ -52,6 +52,24 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [skill-creator](./common/skill-creator/) | 创建、编辑、优化 Skill，运行性能测试 |
 | [teach](./common/teach/) | 在工作区内教授用户新技能或概念 |
 
+### [学术科研](./science/) — 科研全流程辅助
+
+| Skill | 用途 |
+|-------|------|
+| [citation-management](./science/citation-management/) | 学术引用管理：搜索论文、提取元数据、验证引用、生成 BibTeX |
+| [experimental-design](./science/experimental-design/) | 实验设计：随机化、区组、因子、交叉等方案规划 |
+| [exploratory-data-analysis](./science/exploratory-data-analysis/) | 探索性数据分析：200+ 数据格式自动检测与综合 EDA |
+| [hypothesis-generation](./science/hypothesis-generation/) | 假说生成：从观察/数据出发构建可检验假说和验证实验 |
+| [paper-lookup](./science/paper-lookup/) | 论文检索：跨 10 个学术 API 搜索论文、预印本和开放获取全文 |
+| [peer-review](./science/peer-review/) | 同行评审：基于清单的结构化评审，涵盖方法学和报告标准 |
+| [scholar-evaluation](./science/scholar-evaluation/) | 学术评估：多维度定量评分与可操作反馈 |
+| [scientific-brainstorming](./science/scientific-brainstorming/) | 科研头脑风暴：跨学科创意探索与研究空白识别 |
+| [scientific-critical-thinking](./science/scientific-critical-thinking/) | 科学批判性思维：评估证据质量，应用 GRADE 等分级框架 |
+| [scientific-schematics](./science/scientific-schematics/) | 科学示意图：AI 生成出版级科学图表 |
+| [scientific-visualization](./science/scientific-visualization/) | 科学可视化：面向 Nature/Science/Cell 的出版级图表 |
+| [statistical-analysis](./science/statistical-analysis/) | 统计分析：全流程引导式统计分析与 APA 格式报告 |
+| [statistical-power](./science/statistical-power/) | 统计功效与样本量：研究规划的样本量和功效计算 |
+
 ### [分析工具](./analyzer/) — Skill 质量和安全分析
 
 | Skill | 用途 |
@@ -89,4 +107,48 @@ npm i -g @colbymchenry/codegraph
 # skill-security-analyzer（安全扫描）
 # 需要 Python 3.8+，依赖已内置（PyYAML）
 python3 --version
+
+# --- 学术科研系列 ---
+
+# 统计分析 + 统计功效（共享核心依赖）
+uv pip install "pingouin>=0.6" "scipy>=1.11" "statsmodels>=0.14.6" "numpy>=1.26" pandas matplotlib seaborn
+uv pip install "pymc>=5.0" "arviz>=1.0"   # 贝叶斯统计
+uv pip install lifelines                   # 生存分析
+
+# 实验设计
+uv pip install "numpy>=1.26" "pandas>=2.0" pyDOE3
+
+# 引用管理
+uv pip install requests bibtexparser biopython crossref-commons pylatexenc
+uv pip install scholarly                   # Google Scholar（可选）
+uv pip install selenium                    # Scholar 稳定抓取（可选）
+
+# 科学可视化
+uv pip install matplotlib seaborn plotly
+
+# 探索性数据分析（按数据格式按需安装）
+uv pip install biopython                   # 生物信息学格式
+
+# 科学示意图
+pip install requests                       # AI 生成示意图
+
+# 假说生成（LaTeX 报告）
+# 需要 XeLaTeX 或 LuaLaTeX（TeX Live / MiKTeX）
+# Windows: scoop install texlive  或  choco install miktex
+# macOS:   brew install --cask mactex
+# Linux:   sudo apt install texlive-full
+tlmgr install tcolorbox xcolor fontspec fancyhdr titlesec enumitem booktabs natbib
 ```
+
+#### 学术科研环境变量（可选）
+
+以下 API Key 均为可选，未配置时 skill 仍可工作（降级或提示获取方式）：
+
+| 环境变量 | 用途 | 获取地址 |
+|----------|------|----------|
+| `OPENROUTER_API_KEY` | 科学示意图、引用管理、假说生成等的 AI 增强功能 | https://openrouter.ai/keys |
+| `NCBI_API_KEY` | PubMed 检索加速（3→10 req/s） | https://www.ncbi.nlm.nih.gov/account/settings/ |
+| `NCBI_EMAIL` | NCBI Entrez 请求标识 | — |
+| `S2_API_KEY` | Semantic Scholar 检索加速 | https://www.semanticscholar.org/product/api#api-key-form |
+| `CORE_API_KEY` | CORE 全文获取 | https://core.ac.uk/services/api |
+| `OPENALEX_API_KEY` | OpenAlex 检索加速 | https://openalex.org/settings/api |
