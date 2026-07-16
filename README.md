@@ -35,6 +35,9 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 |-------|------|
 | [designer](./planning/designer/) | 多轮对话式项目规划，输出完整计划文档 |
 | [grill-me](./planning/grill-me/) | 方案压力测试，逐条审视设计决策 |
+| [sdd-brainstorm](./planning/sdd-brainstorm/) | 轻量需求头脑风暴 — 先查代码库再讨论 |
+| [sdd-spec](./planning/sdd-spec/) | 将讨论结论转化为结构化规格文档 + 任务拆解 |
+| [sdd-implement](./planning/sdd-implement/) | 按 Ticket 逐个实现，复用优先，内置进度追踪 |
 
 ### [上下文规范](./context-standards/) — 交互行为和上下文管理
 
