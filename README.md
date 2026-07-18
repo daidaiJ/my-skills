@@ -10,6 +10,8 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 |-------|------|
 | [codegraph](./dev-tools/codegraph/) | 代码知识图谱，符号搜索/调用链追踪/变更影响分析 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
+| [code-review](./dev-tools/code-review/) | 极严格可维护性审查：code judo、1000 行红线、反 spaghetti growth |
+| [self-verify](./dev-tools/self-verify/) | 自验证循环：派子智能体审计工作，PASS/FAIL 裁决，失败自动重试 |
 
 ### [媒体处理](./media-tool/) — 音视频和图片处理
 
