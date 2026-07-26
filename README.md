@@ -11,7 +11,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [codegraph](./dev-tools/codegraph/) | 代码知识图谱，符号搜索/调用链追踪/变更影响分析 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
 | [code-review](./dev-tools/code-review/) | 极严格可维护性审查：code judo、1000 行红线、反 spaghetti growth |
-| [self-verify](./dev-tools/self-verify/) | 自验证循环：派子智能体审计工作，PASS/FAIL 裁决，失败自动重试 |
+| [self-verify](./dev-tools/self-verify/) | 自验证循环：派子智能体审计工作，PASS/FAIL 裁决，失败自动重试；新增 ABC 闭卷知识验证回路（校验文档自洽性） |
 
 ### [媒体处理](./media-tool/) — 音视频和图片处理
 
@@ -40,6 +40,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [sdd-brainstorm](./planning/sdd-brainstorm/) | 轻量需求头脑风暴 — 先查代码库再讨论 |
 | [sdd-spec](./planning/sdd-spec/) | 将讨论结论转化为结构化规格文档 + 任务拆解 |
 | [sdd-implement](./planning/sdd-implement/) | 按 Ticket 逐个实现，复用优先，内置进度追踪 |
+| [tech-outline-planner](./planning/tech-outline-planner/) | 技术文章/系统设计大纲规划：C-I-S-T 叙事框架 + "Given before New" 原则，输出架构评审级大纲 |
 
 ### [上下文规范](./context-standards/) — 交互行为和上下文管理
 
@@ -81,6 +82,8 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 |-------|------|
 | [skill-quality-analyzer](./analyzer/skill-quality-analyzer/) | Skill 质量分析：五维度评估（结构/安全/UX/代码/集成），支持综合报告、交互审查、认证三种模式 |
 | [skill-security-analyzer](./analyzer/skill-security-analyzer/) | Skill 安全扫描：检测 40+ 恶意模式（命令注入、YAML 注入、数据泄露、时间炸弹、typosquatting 等） |
+| [project-analyzer](./analyzer/project-analyzer/) | 项目架构深度分析：基于 codegraph 理解模块 + DevOps 扫描，生成 7 章中文白皮书（架构/模块/流程/质量/部署/二次开发） |
+| [doc-reviewer](./analyzer/doc-reviewer/) | 技术文档四维评审：大纲 / 内容 / 资产链接 / 格式，独立运行、按需加载规则集 |
 
 ## 安装
 
