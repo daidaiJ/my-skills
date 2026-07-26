@@ -1,1 +1,26 @@
+# 本地 AI 工具 / 编辑器配置目录（不应入库）
 .qwen/
+.codebuddy/
+.claude/
+.cursor/
+.aider/
+.codegraph/
+
+# 临时 / 备份文件
+*.orig
+*~
+*.swo
+*.swp
+*.bak
+*.tmp
+
+# 操作系统 / 编辑器垃圾
+.DS_Store
+Thumbs.db
+
+# Python 运行时产物
+__pycache__/
+*.pyc
+
+# 日志
+*.log
