@@ -8,6 +8,6 @@
 | [mermaid](./mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
 | [code-review](./code-review/) | 双轴评审：Standards（极严格可维护性审查：code judo、1000 行红线、Fowler smells）+ Spec（忠实实现来源规格） |
 | [diagnosing-bugs](./diagnosing-bugs/) | 疑难 bug 诊断：先建红绿反馈循环 → 最小化复现 → 假设 → 插桩 → 修复 + 回归测试 → 复盘 |
-| [trace-to-plan](./trace-to-plan/) | 反向 wayfinder：多边信号（现象/trace/metrics/代码）交叉收敛 → ROI 决策 → 排序实施计划 → bench 闭环 |
+| [trace-to-plan](./trace-to-plan/) | 反向 wayfinder：.issue 线索链多轮重入调查，多边信号交叉收敛 → ROI 决策 → 业务对齐方案 → bench 闭环 |
 | [github](./github/) | GitHub 平台操作：gh CLI 管理 issues / PR / CI |
 | [self-verify](./self-verify/) | 自验证循环：派子智能体审计工作，PASS/FAIL 裁决，失败自动重试 |
