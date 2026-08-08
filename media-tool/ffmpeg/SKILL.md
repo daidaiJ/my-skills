@@ -314,3 +314,55 @@ For storyboard / contact sheet and slideshow recipes, see `references/recipes.md
 - [FFprobe documentation](https://ffmpeg.org/ffprobe.html)
 - [FFmpeg filters](https://ffmpeg.org/ffmpeg-filters.html)
 - [H.264 encoding guide](https://trac.ffmpeg.org/wiki/Encode/H.264)
+
+---
+
+## 融合工具包（来自 OpenSquilla bundled skills）
+
+以下 2 组脚本从 OpenSquilla bundled skills 融合而来（video-merger / subtitle-burner），作为本 skill 的可选增强工具。均为独立 Python CLI（纯确定性，无 LLM），可与 ffmpeg 原生命令混用。
+
+### 1. 视频合并（video-merger）
+
+**用途**：将目录中按数字前缀编号的 MP4 片段（`1_*.mp4`、`2_*.mp4`、…）按序号拼接为单个 MP4（或按 `--chunk-duration` 切成多个约 60s 的分块），统一分辨率/帧率/编码，可选淡入淡出转场。
+
+**脚本路径**：`scripts/merge_videos.py`（核心库在 `src/video_merger.py`）
+
+**调用方式与关键参数**：
+
+```bash
+python scripts/merge_videos.py --input <片段目录> --output <输出.mp4> \
+  [--mode full|chunk] [--transition 0.5] [--fps 24] \
+  [--crf 22] [--preset medium] [--resolution 1080x1920] \
+  [--chunk-duration 60] [--ffmpeg-path ffmpeg] [--ffprobe-path ffprobe]
+```
+
+- `--input`：包含 `\d+_*.mp4` 片段的目录（必填）；`--output`：full 模式为输出 mp4 路径，chunk 模式为输出目录（必填）
+- `--mode`：`full`（合成单个完整视频）或 `chunk`（按 `--chunk-duration` 切分多个分块）
+- `--transition`：转场淡入淡出时长（秒），`0` 禁用
+- `--resolution`：统一输出分辨率（如 `1080x1920`）；缺省取第一个片段的原始分辨率
+- 片段命名必须匹配 `^\d+_.*\.mp4$`，按前导整数排序；先无损拼接（`-c copy`）再重编码，统一参数并加转场
+- `--ffmpeg-path` / `--ffprobe-path`：可显式指定可执行文件路径（Windows 下 PATH 继承不可靠时使用）
+
+**依赖**：ffmpeg ≥ 5.0、ffprobe、Python 3.8+；仅用标准库，无额外 Python 包。
+
+### 2. 字幕烧录（subtitle-burner）
+
+**用途**：用 ffmpeg `subtitles=` 滤镜（libass）将 SRT 字幕烧录进 MP4。视频单遍重编码（H.264 + faststart + yuv420p），音频原样 `-c:a copy`。内置 CJK 友好字体回退链（Microsoft YaHei → SimHei → Arial Unicode MS → Arial）。
+
+**脚本路径**：`scripts/burn_subtitles.py`
+
+**调用方式与关键参数**：
+
+```bash
+python scripts/burn_subtitles.py --input <源.mp4> --subtitles <字幕.srt> --output <输出.mp4> \
+  [--font "Microsoft YaHei,SimHei,Arial Unicode MS,Arial"] [--font-size 42] \
+  [--margin-v 80] [--play-res auto|720x1280] [--crf 20] [--preset medium] \
+  [--alignment 2] [--outline 2] [--ffmpeg-path ffmpeg]
+```
+
+- `--play-res`：`auto` 时用 ffprobe 探测源视频分辨率，使 `--font-size`/`--margin-v` 以源视频像素为单位；也可直接传 `WxH`（如 `720x1280`）
+- 脚本自动处理 Windows 路径转义（驱动器冒号 `C\:`、正斜杠、路径内单引号），调用方无需关心
+- 样式默认白字 + 2px 黑描边、`BorderStyle=3`、底部居中、距底 80px；失败时 stderr 输出 ffmpeg 日志末尾约 2.5KB
+- 输出打印绝对路径到 stdout；非零退出码表示失败
+
+**依赖**：ffmpeg ≥ 5.0（libass，现代构建均内置）、Python 3.8+；无额外 Python 包。

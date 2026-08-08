@@ -2,6 +2,10 @@
 
 Qwen Code 自定义 Skill 集合，按用途分类组织。
 
+> **仓库定位**：引导 AI 更好、更高效、更省 token 地完成工作（效率工具库）。
+> 不收录 ACG 创作类技能；凡依赖 LLM API 或外部服务 API 才能完成工作的技能不入库。
+> 融合自 OpenSquilla bundled skills 的内容均保留来源与许可证标注。
+
 ## 目录
 
 ### [开发工具](./dev-tools/) — 提升编码效率和代码质量
@@ -11,13 +15,15 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [codegraph](./dev-tools/codegraph/) | 代码知识图谱，符号搜索/调用链追踪/变更影响分析 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
 | [code-review](./dev-tools/code-review/) | 极严格可维护性审查：code judo、1000 行红线、反 spaghetti growth |
-| [self-verify](./dev-tools/self-verify/) | 自验证循环：派子智能体审计工作，PASS/FAIL 裁决，失败自动重试；新增 ABC 闭卷知识验证回路（校验文档自洽性） |
+| [code-task](./dev-tools/code-task/) | 真实仓库任务执行：克隆仓库 → 独立 agent 修改 → 红绿回归测试验证，输出结构化结果 |
+| [github](./dev-tools/github/) | GitHub 平台操作：gh CLI 管理 issues / PR / CI |
+| [self-verify](./dev-tools/self-verify/) | 自验证循环：派子智能体审计工作，PASS/FAIL 裁决，失败自动重试；含 ABC 闭卷知识验证回路与堆栈追踪调试（Go/JS/Python/Rust） |
 
 ### [媒体处理](./media-tool/) — 音视频和图片处理
 
 | Skill | 用途 |
 |-------|------|
-| [ffmpeg](./media-tool/ffmpeg/) | 视频/音频处理：合并、裁剪、转码、提取帧/音频、GIF、字幕 |
+| [ffmpeg](./media-tool/ffmpeg/) | 视频/音频处理：合并、裁剪、转码、提取帧/音频、GIF、字幕；内置视频合并（merge_videos.py）与字幕烧录（burn_subtitles.py）脚本 |
 | [imagemagick](./media-tool/imagemagick/) | 图片处理：调整大小、裁剪、格式转换、水印、合成、批处理 |
 
 ### [办公工具](./office-tool/) — 文档处理全家桶
@@ -26,7 +32,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 |-------|------|
 | [docx](./office-tool/docx/) | Word 文档创建、编辑、模板填写（.docx/.dotx） |
 | [markdown-to-epub](./office-tool/markdown-to-epub/) | Markdown 转 EPUB 电子书，支持 Kindle |
-| [pdf](./office-tool/pdf/) | PDF 读取、合并、拆分、表单填写、OCR、图片插入、表格创建 |
+| [pdf](./office-tool/pdf/) | PDF 读取、合并、拆分、表单填写、OCR、图片插入、表格创建；内置确定性脚本工具包（提取/合并/拆分/填表） |
 | [pptx](./office-tool/pptx/) | PowerPoint 演示文稿，含 193 个预置模板和 QA 工具链 |
 | [xlsx](./office-tool/xlsx/) | 电子表格处理，支持公式、图表、复杂表格填写 |
 | [liteparse](./office-tool/liteparse/) | 轻量 PDF 文本提取，本地处理无依赖 |
@@ -55,7 +61,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | Skill | 用途 |
 |-------|------|
 | [dir-organizer](./common/dir-organizer/) | 整理和优化项目目录结构 |
-| [skill-creator](./common/skill-creator/) | 创建、编辑、优化 Skill，运行性能测试 |
+| [skill-creator](./common/skill-creator/) | 创建、编辑、优化 Skill，运行性能测试；内置结构 lint 质量门禁（lint.py） |
 | [teach](./common/teach/) | 在工作区内教授用户新技能或概念 |
 
 ### [学术科研](./science/) — 科研全流程辅助
@@ -66,7 +72,8 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [experimental-design](./science/experimental-design/) | 实验设计：随机化、区组、因子、交叉等方案规划 |
 | [exploratory-data-analysis](./science/exploratory-data-analysis/) | 探索性数据分析：200+ 数据格式自动检测与综合 EDA |
 | [hypothesis-generation](./science/hypothesis-generation/) | 假说生成：从观察/数据出发构建可检验假说和验证实验 |
-| [paper-lookup](./science/paper-lookup/) | 论文检索：跨 10 个学术 API 搜索论文、预印本和开放获取全文 |
+| [paper-lookup](./science/paper-lookup/) | 论文检索：跨 10 个学术 API 搜索论文、预印本和开放获取全文；内置论文写作流水线（来源整理→提纲→引用规划→分节写作→整稿修订→摘要） |
+| [deep-research](./science/deep-research/) | 深度研究：多轮研究方法论、状态文件跟踪、逐条引用，产出可验证的综合报告 |
 | [peer-review](./science/peer-review/) | 同行评审：基于清单的结构化评审，涵盖方法学和报告标准 |
 | [scholar-evaluation](./science/scholar-evaluation/) | 学术评估：多维度定量评分与可操作反馈 |
 | [scientific-brainstorming](./science/scientific-brainstorming/) | 科研头脑风暴：跨学科创意探索与研究空白识别 |
@@ -101,6 +108,11 @@ cp -r dev-tools/codegraph ~/.qwen/skills/codegraph
 ```bash
 # codegraph
 npm i -g @colbymchenry/codegraph
+
+# github（GitHub 平台操作）
+# Windows: winget install GitHub.cli
+# macOS:   brew install gh
+# Linux:   sudo apt install gh
 
 # ffmpeg（视频/音频处理）
 # Windows: scoop install ffmpeg  或  choco install ffmpeg

@@ -1,6 +1,7 @@
 ---
 name: skill-creator
 description: Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
+description_zh: "创建新技能、修改并改进现有技能、衡量技能性能。当用户想从零创建技能、编辑或优化现有技能、运行评测来测试技能、用方差分析对技能性能做基准测试、或优化技能描述以提高触发准确性时使用。"
 ---
 
 # Skill Creator
@@ -483,3 +484,25 @@ Repeating one more time the core loop here for emphasis:
 Please add steps to your TodoList, if you have such a thing, to make sure you don't forget. If you're in Cowork, please specifically put "Create evals JSON and run `eval-viewer/generate_review.py` so human can review test cases" in your TodoList to make sure it happens.
 
 Good luck!
+
+---
+
+## 质量门禁（融合自 OpenSquilla skill-creator-linter）
+
+本节融合了 OpenSquilla 内置的 `skill-creator-linter` 内部工具（来源：`opensquilla-gateway/_internal/opensquilla/skills/bundled/`，Apache-2.0）。这里作为创建/修改技能后的一层质量校验参考。该工具是内部工具（`user-invocable: false`），不可由用户直接触发。
+
+### 静态/结构 lint（scripts/lint.py）
+
+`common/skill-creator/scripts/lint.py` 是 `skill-creator-linter` 的确定性 lint 脚本（纯 Python，无 LLM，亚秒级）。针对候选 meta-skill 的 SKILL.md 运行两组闸门，输出 JSON 到 stdout：
+
+```bash
+python scripts/lint.py --skill-md path/to/SKILL.md --gates G1,G2
+python scripts/lint.py --skill-md-stdin --gates G1,G2 < SKILL.md
+```
+
+输出格式：`{"G1": {"passed": bool, "diagnostics": [...]}, "G2": {...}}`。校验要点：
+
+- **G1（静态结构）**：`parse_meta_plan` 不抛异常（YAML frontmatter 可解析）；所有 `kind: agent` / `skill_exec` 步骤引用的 `step.skill` 必须存在于主技能目录且不能是 `kind: meta`（运行时不允许嵌套 meta-skill）；所有 `{{ inputs.user_message ` 用法必须紧跟 `| xml_escape`（或 `| slugify`）作为第一个过滤器，防止提示词注入。
+- **G2（调度器空跑）**：把各步骤执行器替换为返回 `_StepDone(text="<stub:id>")` 的桩，运行调度器；无异常且拓扑能正常终止即通过。
+
+注意：脚本通过自身路径推断 opensquilla 包根目录（`parents[4]`），依赖 `opensquilla.skills` 的解析器/调度器模块，在无该包的环境下需先安装或调整路径。

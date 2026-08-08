@@ -204,3 +204,30 @@ Exact command and result.
 - ABC Loop：验证"产物文档本身是否自洽、可被独立理解"（知识质量）。
 - 两者可串联：先用 VERIFIER PROMPT 确认完成度，再视情况追加 ABC Loop 校验知识自洽性。
 
+## 堆栈追踪调试（Stack Trace Debugging）— 辅助子流程
+
+当自验证阶段（Phase B 代码审查）遇到报错堆栈 / 回溯，或用户直接给出堆栈要求
+定位根因时，用本节流程。融合自 OpenSquilla 5 个 stack-trace probe skill
+（generic / go / js / python / rust，Apache-2.0），支持 Go / JavaScript /
+Python / Rust 四语言 + 语言未知的通用流程。
+
+### 通用诊断流程（语言未知或混合栈）
+
+1. **契约检查**：核对堆栈暴露处的数据形状 / schema / 失败契约是否符合预期
+   （缺字段、类型不符、返回值被忽略等）。
+2. **边界检查**：检查越界、空值、并发边界等"崩溃点"周围的条件。
+3. **最小复现**：给出语言中立的复现形态（最小输入 + 触发路径），可复现才能验证修复。
+4. **补丁目标**：定位防御性解析 / null 处理 / 错误传播的修改点。
+5. **验证**：给出安全的手工检查或命令，确认修复后错误消失。
+
+### 语言速查
+
+| 语言 | 识别要点 | 检查重点 | 复现 | 补丁目标 |
+|---|---|---|---|---|
+| Go | `goroutine` / `runtime` 帧、`nil pointer dereference` | nil 指针、被忽略的 error 返回值、goroutine 边界 | `go test ./path -run TestName` | nil 守卫、显式 error 处理、断言 ok 形式 |
+| JS/TS | `at ... (file.js:行:列)`、`Cannot read properties of undefined` | async 边界（await 缺失 / unhandled rejection）、undefined 属性、JSON/模块解析 | `npm test` / `npx tsc --noEmit` | 可选链 `?.`、运行时 schema 校验、判别联合收窄 |
+| Python | `Traceback (most recent call last)`、`File "...", line N` | 异常契约、缺失 key / None 处理、import 边界 | `pytest -k <symbol>` | guard clause、TypedDict/pydantic 校验、异常包装保留根因 |
+| Rust | `panicked at`、`stack backtrace:`、`unwrap()` | panic / unwrap / expect、Option / Result 处理 | `cargo test <name>` | `ok_or` / `map_err` / `?` 替换 unwrap / expect |
+
+每章内的"复现 → 补丁 → 验证"即统一诊断骨架：先最小复现确认根因，再做最小补丁，
+最后用验证命令收尾。一切检查基于用户提供的实际堆栈内容，不臆造不存在的文件或依赖。
