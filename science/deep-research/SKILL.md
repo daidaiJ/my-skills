@@ -13,6 +13,8 @@ metadata:
     "platform":
       {
         "emoji": "🔬",
+        "requires": { "bins": ["python"], "env": [] },
+        "install": [{ "id": "pydantic", "kind": "uv", "package": "pydantic", "label": "Install pydantic (scripts 依赖)" }],
       },
   }
 ---
@@ -46,10 +48,12 @@ any point.
 
 ---
 
+> 路径说明：下文 `<skill_dir>` 表示本 skill 所在目录（含 `scripts/`）。脚本依赖 `pydantic`（`pip install pydantic`）。
+
 ## Stage 1: Plan
 
 ```bash
-python {baseDir}/scripts/plan.py \
+python <skill_dir>/scripts/plan.py \
     --question "How did Manus differentiate from competing AI agents in 2025?" \
     --depth thorough \
     --out plan.json
@@ -75,10 +79,10 @@ returns results) record evidence back into the plan.
 
 ```bash
 # Show the host what to fetch this round
-python {baseDir}/scripts/iterate.py --plan plan.json --round 1 --print-fetches
+python <skill_dir>/scripts/iterate.py --plan plan.json --round 1 --print-fetches
 
 # After the host fetches, record results back
-python {baseDir}/scripts/iterate.py --plan plan.json --round 1 \
+python <skill_dir>/scripts/iterate.py --plan plan.json --round 1 \
     --record evidence_round_1.json
 ```
 
@@ -110,7 +114,7 @@ apply when judging relevance.
 ## Stage 3: Compile
 
 ```bash
-python {baseDir}/scripts/compile.py --plan plan.json --out report.md
+python <skill_dir>/scripts/compile.py --plan plan.json --out report.md
 ```
 
 Output is markdown with:
