@@ -1,7 +1,7 @@
 ---
 name: trace-to-plan
-description: 反向 wayfinder——从现象描述、trace 日志、metrics 指标、项目代码多边信号中发掘现有系统的缺陷与性能堵塞点，交叉验证后做修/不修决策，产出排序实施计划并 bench 闭环验证。支持多轮重入：线索沉淀到 .issue/ 目录跨会话累积。Use when user says "排查性能问题", "系统变慢了", "找瓶颈", "性能体检", "优化哪里", "perf investigation", "find bottlenecks", or reports slow/crashed/regressed behavior in an existing system.
-description_zh: 存量系统的缺陷与性能勘探：多边信号（现象/日志/指标/代码对照）交叉收敛 → 候选问题清单 → 最小验证 + ROI 决策 → 业务对齐方案 → bench 验证闭环。与 wayfinder（自顶向下规划新工程）相反，本 skill 自底向上从现状数据中发现"哪里值得改"。调查状态沉淀在 .issue/ 目录：index.md 索引摘要（每轮唯一必读，时间线 问题-原因-修复）+ 线索链跨会话累积，支持多轮接力、分段推进与跨分支重放修复包。渐进式披露：按当前阶段按需加载 stage 指引（只给日志时不加载 bench）。
+description: 排查存量系统的缺陷与性能瓶颈：从现象描述、trace 日志、metrics 指标与项目代码多边信号中交叉验证定位根因，按 ROI 做修/不修决策，产出低风险优先的排序实施计划，并经 bench 验证闭环。多轮调查通过 .issue/ 线索链与 index.md 索引摘要接力推进。Use when user says "排查性能问题", "系统变慢了", "找瓶颈", "性能体检", "优化哪里", "perf investigation", "find bottlenecks", or reports slow/crashed/regressed behavior in an existing system.
+description_zh: 排查存量系统缺陷与性能瓶颈：多边信号（现象/日志/指标/代码对照）交叉验证定位根因 → ROI 修/不修决策 → 低风险优先排序实施计划 → bench 验证闭环。调查状态沉淀在 .issue/ 目录（index.md 索引摘要 + 线索链），支持多轮接力、分段推进与跨分支重放修复包。触发场景："排查性能问题"、"系统变慢了"、"找瓶颈"、"性能体检"、"优化哪里"、报告现有系统慢/崩溃/回退。渐进式披露：按当前阶段按需加载 stage 指引（只给日志时不加载 bench）。
 ---
 
 # Trace to Plan — 从痕迹到计划
