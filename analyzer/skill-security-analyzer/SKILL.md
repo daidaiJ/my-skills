@@ -1,6 +1,6 @@
 ---
 name: skill-security-analyzer-v2
-description: Comprehensive security analysis for Claude Code skills with P0-P3 enhancements. Detects malicious code, obfuscation, YAML injection, typosquatting, time bombs, sandbox escapes, and 40+ attack patterns. Use for analyzing skills before installation or auditing existing skills.
+description: Comprehensive security analysis for agent skills with P0-P3 enhancements. Detects malicious code, obfuscation, YAML injection, typosquatting, time bombs, sandbox escapes, and 40+ attack patterns. Use for analyzing skills before installation or auditing existing skills.
 version: 2.0
 ---
 
@@ -8,7 +8,7 @@ version: 2.0
 
 ## Overview
 
-Enhanced security scanner for Claude Code skills implementing all P0-P3 recommendations. Detects 40+ malicious patterns including indirect execution, advanced encoding, shell injection, time bombs, typosquatting, environment manipulation, and sandbox escapes.
+Enhanced security scanner for agent skills implementing all P0-P3 recommendations. Detects 40+ malicious patterns including indirect execution, advanced encoding, shell injection, time bombs, typosquatting, environment manipulation, and sandbox escapes.
 
 **Version 2.0 Improvements:**
 - ✅ P0: Indirect execution detection (getattr, __import__)
@@ -44,7 +44,7 @@ python3 scripts/security_scanner.py /path/to/skill
 python3 scripts/security_scanner.py /path/to/skill --verbose
 
 # Scan all installed skills
-python3 scripts/security_scanner.py ~/.claude/skills/ --recursive
+python3 scripts/security_scanner.py <skills-dir> --recursive  # adjust to your platform
 
 # Output to JSON
 python3 scripts/security_scanner.py /path/to/skill --output report.json

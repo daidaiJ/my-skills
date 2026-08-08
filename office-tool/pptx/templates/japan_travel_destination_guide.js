@@ -136,7 +136,7 @@ function figTab(slide, x, y, text, w = 0.825, h = 0.229) {
 
 // ---------- presentation setup ----------
 const pres = new pptxgen();
-pres.author = "Anthropic Claude";
+pres.author = "Assistant";
 pres.title  = "Japan — A Traveler's Invitation";
 pres.defineLayout({ name: "JAPAN20x11_25", width: 20, height: 11.25 });
 pres.layout = "JAPAN20x11_25";

@@ -1,4 +1,4 @@
-# Common Anti-Patterns in Claude Skills
+# Common Anti-Patterns in Agent Skills
 
 This reference catalogs frequent mistakes and issues to flag during skill quality analysis.
 
@@ -16,7 +16,7 @@ This is my skill for doing things.
 ```
 
 **Why It's Bad:**
-- Claude Code can't identify skill properly
+- The agent can't identify skill properly
 - No description for marketplace/discovery
 - Missing metadata
 
@@ -70,7 +70,7 @@ This skill helps with security analysis.
 
 **Why It's Bad:**
 - Users don't know how to trigger skill
-- Claude Code may not invoke it
+- The agent may not invoke it
 - Unclear activation criteria
 
 **Fix:**
@@ -113,7 +113,7 @@ This skill analyzes code. It checks for issues and reports them.
 **User Request:** "Check if the emailer skill is safe"
 
 **Process:**
-1. Locate skill: `~/.claude/skills/emailer/`
+1. Locate skill: `<skills-dir>/emailer/`
 2. Run security scan
 3. Find: Network call to smtp.gmail.com (documented - OK)
 4. Result: MEDIUM risk, APPROVED (email sending is expected)
@@ -127,7 +127,7 @@ This skill analyzes code. It checks for issues and reports them.
 
 **Bad Example:**
 ```markdown
-This skill performs comprehensive security analysis for Claude Code skills and plugins from various sources including marketplaces zip files and local directories by identifying security vulnerabilities malicious code patterns supply chain risks and YAML injection vulnerabilities to ensure skills are safe to use it analyzes code structure...
+This skill performs comprehensive security analysis for agent skills and plugins from various sources including marketplaces zip files and local directories by identifying security vulnerabilities malicious code patterns supply chain risks and YAML injection vulnerabilities to ensure skills are safe to use it analyzes code structure...
 ```
 
 **Why It's Bad:**
@@ -140,7 +140,7 @@ Use lists, headers, code blocks:
 ```markdown
 ## Overview
 
-This skill provides security analysis for Claude Code skills from:
+This skill provides security analysis for agent skills from:
 - Marketplaces
 - ZIP files
 - Local directories
@@ -562,7 +562,7 @@ Arguments:
     --output: Optional JSON output file
 
 Example:
-    python analyzer.py ~/.claude/skills/my-skill --output analysis.json
+    python analyzer.py <skills-dir>/my-skill --output analysis.json
 """
 import argparse
 import sys
@@ -687,7 +687,7 @@ def analyze_skill(path):
 **Bad Example:**
 ```markdown
 Ask user to manually:
-1. Open ~/.claude/skills directory
+1. Open your platform's skills directory
 2. Find the skill folder
 3. Copy path
 4. Provide path to me
@@ -702,7 +702,7 @@ Ask user to manually:
 ```markdown
 Automatically locate skill:
 ```bash
-ls -la ~/.claude/skills/
+ls -la <your-skills-dir>/
 ```
 ```
 

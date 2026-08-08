@@ -1,6 +1,6 @@
 # Safe Coding Practices for Skills
 
-Guidelines for creating secure Claude Code skills that pass security scanning.
+Guidelines for creating secure agent skills that pass security scanning.
 
 ## Command Execution
 

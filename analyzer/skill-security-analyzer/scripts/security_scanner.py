@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Enhanced Security Scanner for Claude Code Skills v2.0
+Enhanced Security Scanner for Agent Skills v2.0
 Addresses bypass techniques with advanced pattern detection and semantic analysis
 """
 
@@ -673,7 +673,7 @@ class EnhancedSecurityScanner:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Enhanced security scanner for Claude Code skills v2.0'
+        description='Enhanced security scanner for agent skills v2.0'
     )
     parser.add_argument('skill_path', help='Path to skill directory')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')

@@ -1,10 +1,10 @@
-# Claude Skill Quality Analyzer
+# Agent Skill Quality Analyzer
 
-Comprehensive quality analysis tool for Claude Skills, evaluating skills from any source across five critical dimensions using a balanced scoring approach.
+Comprehensive quality analysis tool for agent skills, evaluating skills from any source across five critical dimensions using a balanced scoring approach.
 
 ## Overview
 
-The Skill Quality Analyzer provides systematic evaluation of Claude Skills to ensure they meet best practices for structure, security, user experience, code quality, and integration. It supports three analysis modes and multiple skill sources.
+The Skill Quality Analyzer provides systematic evaluation of agent skills to ensure they meet best practices for structure, security, user experience, code quality, and integration. It supports three analysis modes and multiple skill sources.
 
 ## Features
 
@@ -28,7 +28,7 @@ User: Analyze skill quality for https://github.com/user/my-skill
 ### Analyze a Local Skill
 
 ```
-User: Review this skill: ~/.claude/skills/my-skill
+User: Review this skill: <skills-dir>/my-skill
 ```
 
 ### Certify Skill Quality
@@ -167,7 +167,7 @@ Analyzer:
 ### Certification Mode
 
 ```
-User: Certify skill quality for ~/.claude/skills/production-skill
+User: Certify skill quality for <skills-dir>/production-skill
 
 Analyzer:
 1. Evaluates against certification criteria
@@ -246,7 +246,7 @@ When creating skills, follow the patterns documented in `references/best-practic
 
 ## License
 
-This skill is designed to improve the quality and security of Claude Skills ecosystem.
+This skill is designed to improve the quality and security of the agent skills ecosystem.
 
 ## Support
 

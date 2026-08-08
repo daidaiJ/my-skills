@@ -1,6 +1,6 @@
 # Skill Security Analyzer v2.0
 
-Comprehensive security analysis tool for Claude Code skills. Detects 40+ malicious patterns including indirect execution, advanced encoding, YAML injection, typosquatting, time bombs, and sandbox escapes.
+Comprehensive security analysis tool for agent skills. Detects 40+ malicious patterns including indirect execution, advanced encoding, YAML injection, typosquatting, time bombs, and sandbox escapes.
 
 ## What's New in v2.0
 
@@ -31,11 +31,11 @@ Comprehensive security analysis tool for Claude Code skills. Detects 40+ malicio
 
 ```bash
 # Clone or download this skill
-cd ~/.claude/skills/
+cd <skills-dir>  # adjust to your platform
 unzip skill-security-analyzer-v2.zip
 
 # Or copy directory
-cp -r skill-security-analyzer-v2 ~/.claude/skills/
+cp -r skill-security-analyzer-v2 <skills-dir>/
 ```
 
 ## Usage
@@ -57,10 +57,10 @@ python3 scripts/security_scanner.py /path/to/skill --output report.json
 
 ```bash
 # Scan all installed skills
-python3 scripts/security_scanner.py ~/.claude/skills/ --recursive
+python3 scripts/security_scanner.py <skills-dir> --recursive
 
 # Scan marketplace directory
-python3 scripts/security_scanner.py ~/.claude/plugins/marketplaces/official/ --recursive
+python3 scripts/security_scanner.py <marketplaces-dir> --recursive
 ```
 
 ### Testing

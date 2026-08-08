@@ -6,7 +6,7 @@ provenance:
   origin: openclaw-derived
   license: MIT
   upstream_url: https://github.com/openclaw/openclaw
-  maintained_by: OpenSquilla
+  maintained_by: my-skills
 metadata:
   {
     "openclaw":

@@ -215,4 +215,4 @@ Read the relevant reference file before making any API call.
 
 ## 论文写作流水线
 
-融合自 OpenSquilla `meta-paper-write` / `paper-*` 系列（Apache-2.0）。提供从文献整理到摘要定稿的 6 步论文写作流程（来源整理 → 提纲 → 引用规划 → 分节写作 → 整稿修订 → 摘要），完整步骤与输出契约见 `references/paper-pipeline.md`。
+融合自开源 `meta-paper-write` / `paper-*` 系列（Apache-2.0）。提供从文献整理到摘要定稿的 6 步论文写作流程（来源整理 → 提纲 → 引用规划 → 分节写作 → 整稿修订 → 摘要），完整步骤与输出契约见 `references/paper-pipeline.md`。

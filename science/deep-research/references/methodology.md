@@ -68,7 +68,7 @@ past 12 months, and how do they compare to the stated goals?".
 ```
 while not plan.done:
     fetches = iterate.print_fetches(plan)        # → host
-    evidence = host.fetch_each(fetches)          # OpenSquilla web tools
+    evidence = host.fetch_each(fetches)          # host agent web tools
     iterate.record(plan, evidence)               # ← back in
 ```
 

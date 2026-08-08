@@ -1,6 +1,6 @@
 # Skill Quality Evaluation Checklist
 
-This comprehensive checklist provides detailed criteria for evaluating Claude Skills across all five quality dimensions.
+This comprehensive checklist provides detailed criteria for evaluating agent skills across all five quality dimensions.
 
 ## 1. Structure & Documentation (20% weight)
 
@@ -23,7 +23,7 @@ This comprehensive checklist provides detailed criteria for evaluating Claude Sk
 - [ ] **Specific, not vague** - Concrete capability description
 
 **Good Examples:**
-- "Security analysis tool for Claude Code skills. Use when analyzing skills for vulnerabilities. Triggers: 'analyze skill security'."
+- "Security analysis tool for agent skills. Use when analyzing skills for vulnerabilities. Triggers: 'analyze skill security'."
 - "Frontend code review for React apps. Use when reviewing PRs. Triggers: 'review frontend code'."
 
 **Bad Examples:**

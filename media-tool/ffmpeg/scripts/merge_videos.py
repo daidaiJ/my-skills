@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 来源: D:\Programs\opensquilla\resources\runtime\gateway\opensquilla-gateway\_internal\opensquilla\skills\bundled\video-merger\scripts\merge.py
+# 来源: 开源 bundled skill (video-merger), 改编
 """
 Video Merger Command Line Interface
 视频拼接工具命令行入口

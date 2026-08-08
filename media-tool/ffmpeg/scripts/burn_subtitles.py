@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 来源: D:\Programs\opensquilla\resources\runtime\gateway\opensquilla-gateway\_internal\opensquilla\skills\bundled\subtitle-burner\scripts\burn.py
+# 来源: 开源 bundled skill (subtitle-burner), 改编
 """Burn an SRT subtitle file into an MP4 video using ffmpeg.
 
 Single-pass re-encode that overlays the SRT cues onto the video stream

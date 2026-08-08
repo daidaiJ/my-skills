@@ -1,6 +1,6 @@
-# Best Practices & Patterns for Claude Skills
+# Best Practices & Patterns for Agent Skills
 
-This reference documents proven patterns from high-quality Claude Skills analyzed during quality assessment.
+This reference documents proven patterns from high-quality agent skills analyzed during quality assessment.
 
 ## Exemplary Skill Patterns
 
@@ -10,7 +10,7 @@ This reference documents proven patterns from high-quality Claude Skills analyze
 
 1. **Crystal Clear Purpose**
    - Name: `skill-security-analyzer`
-   - Description: "Security analysis tool for Claude Code skills and plugins..."
+   - Description: "Security analysis tool for agent skills and plugins..."
    - Immediately obvious what it does
 
 2. **Comprehensive Workflow**
@@ -105,7 +105,7 @@ description: [Action] for [context]. Use when [trigger scenario]. Trigger phrase
 ```yaml
 ---
 name: skill-security-analyzer
-description: Security analysis tool for Claude Code skills and plugins. Use when analyzing skills from marketplaces, zip files, or local directories for security vulnerabilities, malicious code patterns, supply chain risks, and best practice violations. Triggers on requests like "analyze this skill for security issues", "check if this plugin is safe", "audit skill security", or "review skill for malware".
+description: Security analysis tool for agent skills and plugins. Use when analyzing skills from marketplaces, zip files, or local directories for security vulnerabilities, malicious code patterns, supply chain risks, and best practice violations. Triggers on requests like "analyze this skill for security issues", "check if this plugin is safe", "audit skill security", or "review skill for malware".
 ---
 ```
 
@@ -138,7 +138,7 @@ description: Comprehensive frontend code review skill for React/Vue/Angular appl
 ```markdown
 ## Overview
 
-This skill provides comprehensive security analysis for Claude Code skills and plugins installed from marketplaces, zip files, or local directories. It identifies security vulnerabilities, malicious code patterns, supply chain risks, YAML injection vulnerabilities, and best practice violations to ensure skills are safe to use.
+This skill provides comprehensive security analysis for agent skills and plugins installed from marketplaces, zip files, or local directories. It identifies security vulnerabilities, malicious code patterns, supply chain risks, YAML injection vulnerabilities, and best practice violations to ensure skills are safe to use.
 ```
 
 **Why This Works:**
@@ -228,10 +228,10 @@ First, determine the skill location based on user input:
 **For marketplace skills:**
 ```bash
 # User skills (project-specific)
-ls -la .claude-project/skills/
+ls -la <project-skills-dir>/
 
 # Global user skills
-ls -la ~/.claude/skills/
+ls -la <user-skills-dir>/
 ```
 
 **Skill structure to identify:**
@@ -271,7 +271,7 @@ skill-name/
 Automated security scanner that detects common vulnerability patterns, malicious code, YAML injection, supply chain risks, and best practice violations. Outputs JSON report with findings.
 
 ### references/vulnerability_patterns.md
-Comprehensive database of malicious code patterns, attack vectors, and exploitation techniques specific to Claude Code skills. Load when deeper analysis is needed.
+Comprehensive database of malicious code patterns, attack vectors, and exploitation techniques specific to agent skills. Load when deeper analysis is needed.
 
 ### references/safe_coding_practices.md
 Best practices guide for secure skill development. Reference when providing remediation recommendations or reviewing code quality.
@@ -396,7 +396,7 @@ echo "Setup complete!"
 ```python
 #!/usr/bin/env python3
 """
-Security scanner for Claude Code skills.
+Security scanner for agent skills.
 
 Usage:
     python security_scanner.py <path-to-skill> [--verbose] [--output report.json]

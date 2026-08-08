@@ -89,7 +89,7 @@ XFA forms are not supported by pypdf. Detect with `reader.trailer["/Root"]
 writer.add_metadata({
     "/Title": "Q3 Review",
     "/Author": "Wei E.",
-    "/Producer": "OpenSquilla pdf-toolkit",
+    "/Producer": "pdf-toolkit",
 })
 ```
 

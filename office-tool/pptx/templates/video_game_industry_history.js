@@ -183,7 +183,7 @@ async function build() {
     pres.defineLayout({ name: "CUSTOM_WIDE", width: W, height: H });
     pres.layout = "CUSTOM_WIDE";
     pres.title = "The History of the Video Game Industry";
-    pres.author = "Anthropic";
+    pres.author = "Assistant";
 
     // ============ SLIDE 1 — Title ============
     {

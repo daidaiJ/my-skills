@@ -1,10 +1,10 @@
-# 论文写作流水线（融合自 OpenSquilla meta-paper-write / paper-* 系列）
+# 论文写作流水线（融合自开源 meta-paper-write / paper-* 系列）
 
-## 论文写作流水线（融合自 OpenSquilla meta-paper-write / paper-* 系列）
+## 论文写作流水线（融合自开源 meta-paper-write / paper-* 系列）
 
 来源：`meta-paper-write` 编排器 + `paper-source-curator` / `paper-outline-author` /
 `paper-citation-planner` / `paper-section-author` / `paper-revision-author` /
-`paper-abstract-author`（origin: opensquilla-original，许可证 Apache-2.0）。
+`paper-abstract-author`（origin: open-source，许可证 Apache-2.0）。
 本 skill 的检索能力是这条流水线的第一步——先用上面的文献 API 找到资料并整理出
 BibTeX，再按下面的顺序产出论文。每步输出是下一步的输入，遵循各自固定的输出契约。
 

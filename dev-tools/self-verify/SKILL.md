@@ -207,7 +207,7 @@ Exact command and result.
 ## 堆栈追踪调试（Stack Trace Debugging）— 辅助子流程
 
 当自验证阶段（Phase B 代码审查）遇到报错堆栈 / 回溯，或用户直接给出堆栈要求
-定位根因时，用本节流程。融合自 OpenSquilla 5 个 stack-trace probe skill
+定位根因时，用本节流程。融合自开源 stack-trace 探针类 skill
 （generic / go / js / python / rust，Apache-2.0），支持 Go / JavaScript /
 Python / Rust 四语言 + 语言未知的通用流程。
 

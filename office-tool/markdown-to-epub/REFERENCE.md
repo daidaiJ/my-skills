@@ -247,7 +247,7 @@ result = processor.process(markdown_content)
 
 ## API Integration
 
-### Using with Claude Skills
+### Using in Skill Implementations
 
 ```python
 # In your skill implementation

@@ -317,9 +317,9 @@ For storyboard / contact sheet and slideshow recipes, see `references/recipes.md
 
 ---
 
-## 融合工具包（来自 OpenSquilla bundled skills）
+## 融合工具包（来自开源 bundled skills）
 
-以下 2 组脚本从 OpenSquilla bundled skills 融合而来（video-merger / subtitle-burner），作为本 skill 的可选增强工具。均为独立 Python CLI（纯确定性，无 LLM），可与 ffmpeg 原生命令混用。
+以下 2 组脚本从开源 bundled skills 融合而来（video-merger / subtitle-burner），作为本 skill 的可选增强工具。均为独立 Python CLI（纯确定性，无 LLM），可与 ffmpeg 原生命令混用。
 
 ### 1. 视频合并（video-merger）
 

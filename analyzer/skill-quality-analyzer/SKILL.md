@@ -1,13 +1,13 @@
 ---
 name: skill-quality-analyzer
-description: Comprehensive quality analysis tool for Claude Skills. Evaluates skills from GitHub URLs, marketplace links, ZIP files, or local directories across five dimensions (structure, security, UX, code quality, integration) using balanced scoring and three output modes (comprehensive report, interactive review, pass/fail certification). Triggers on "analyze skill quality", "review this skill", "evaluate skill", or "skill quality check".
+description: Comprehensive quality analysis tool for agent skills. Evaluates skills from GitHub URLs, marketplace links, ZIP files, or local directories across five dimensions (structure, security, UX, code quality, integration) using balanced scoring and three output modes (comprehensive report, interactive review, pass/fail certification). Triggers on "analyze skill quality", "review this skill", "evaluate skill", or "skill quality check".
 ---
 
-# Claude Skill Quality Analyzer
+# Agent Skill Quality Analyzer
 
 ## Overview
 
-This skill provides comprehensive quality analysis for Claude Skills from any source (GitHub, marketplaces, ZIP files, local directories). It evaluates skills across five critical dimensions using a balanced approach that weighs security, architecture, user experience, code quality, and integration equally.
+This skill provides comprehensive quality analysis for agent skills from any source (GitHub, marketplaces, ZIP files, local directories). It evaluates skills across five critical dimensions using a balanced approach that weighs security, architecture, user experience, code quality, and integration equally.
 
 ## Output Modes
 
@@ -143,10 +143,9 @@ git clone <github-url> /tmp/skill-analysis/<skill-name>
 
 For marketplace links:
 ```bash
-# Marketplace skills are in ~/.claude/plugins/marketplaces/*/
-# or ~/.claude/skills/ for user skills
-ls -la ~/.claude/skills/
-ls -la ~/.claude/plugins/marketplaces/*/
+# Skill locations are platform-specific; use your platform's directory
+# (adjust to your platform's skill directory)
+ls -la <your-skills-dir>/
 ```
 
 For ZIP files:
@@ -712,7 +711,7 @@ Use this skill when:
 ```
 
 Examples:
-- "Security analysis tool for Claude Code skills. Use when analyzing skills for vulnerabilities. Triggers: 'analyze skill security', 'check if safe'."
+- "Security analysis tool for agent skills. Use when analyzing skills for vulnerabilities. Triggers: 'analyze skill security', 'check if safe'."
 - "Frontend code review for React apps. Use when reviewing PRs or code. Triggers: 'review frontend code', 'check React best practices'."
 
 ### Excellent Trigger Phrases
