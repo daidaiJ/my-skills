@@ -5,7 +5,7 @@
 | Skill | 用途 |
 |-------|------|
 | [designer](./designer/) | 多轮对话式项目规划，输出完整计划文档 |
-| [grill-me](./grill-me/) | 方案压力测试，逐条审视设计决策 |
+| [grill-me](./grill-me/) | 方案压力测试 + 内联文档维护：拷问设计决策，术语解析即写入 CONTEXT.md，满足条件提议 ADR |
 | [sdd-brainstorm](./sdd-brainstorm/) | 轻量需求头脑风暴 — 先查代码库再讨论 |
 | [sdd-spec](./sdd-spec/) | 将讨论结论转化为结构化规格文档 + 任务拆解 |
 | [sdd-implement](./sdd-implement/) | 按 Ticket 逐个实现，复用优先，内置进度追踪 |
@@ -31,4 +31,4 @@
      (L0 默认)       (L0 默认)      (L0+todo)
 ```
 
-阶段间可插入 `/grill-me` 压力测试或 `/handoff` 保存上下文。
+阶段间可插入 `/grill-me` 压力测试（兼维护领域模型文档）或 `/handoff` 保存上下文。

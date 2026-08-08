@@ -14,7 +14,8 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 |-------|------|
 | [codegraph](./dev-tools/codegraph/) | 代码知识图谱，符号搜索/调用链追踪/变更影响分析 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
-| [code-review](./dev-tools/code-review/) | 极严格可维护性审查：code judo、1000 行红线、反 spaghetti growth |
+| [code-review](./dev-tools/code-review/) | 双轴评审：Standards（极严格可维护性审查：code judo、1000 行红线、Fowler smells）+ Spec（忠实实现来源规格） |
+| [diagnosing-bugs](./dev-tools/diagnosing-bugs/) | 疑难 bug 诊断：先建红绿反馈循环 → 最小化复现 → 假设 → 插桩 → 修复 + 回归测试 → 复盘 |
 | [github](./dev-tools/github/) | GitHub 平台操作：gh CLI 管理 issues / PR / CI |
 | [self-verify](./dev-tools/self-verify/) | 自验证循环：派子智能体审计工作，PASS/FAIL 裁决，失败自动重试；含 ABC 闭卷知识验证回路与堆栈追踪调试（Go/JS/Python/Rust） |
 
@@ -41,7 +42,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | Skill | 用途 |
 |-------|------|
 | [designer](./planning/designer/) | 多轮对话式项目规划，输出完整计划文档 |
-| [grill-me](./planning/grill-me/) | 方案压力测试，逐条审视设计决策 |
+| [grill-me](./planning/grill-me/) | 方案压力测试 + 内联文档维护：拷问设计决策，术语解析即写入 CONTEXT.md，满足条件提议 ADR |
 | [sdd-brainstorm](./planning/sdd-brainstorm/) | 轻量需求头脑风暴 — 先查代码库再讨论 |
 | [sdd-spec](./planning/sdd-spec/) | 将讨论结论转化为结构化规格文档 + 任务拆解 |
 | [sdd-implement](./planning/sdd-implement/) | 按 Ticket 逐个实现，复用优先，内置进度追踪 |
