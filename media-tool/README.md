@@ -4,7 +4,7 @@
 
 | Skill | 用途 |
 |-------|------|
-| [ffmpeg](./ffmpeg/) | 视频/音频处理：合并、裁剪、转码、提取帧/音频、GIF、字幕 |
+| [ffmpeg](./ffmpeg/) | 视频/音频处理：合并、裁剪、转码、提取帧/音频、GIF、字幕；内置视频合并（merge_videos.py）与字幕烧录（burn_subtitles.py）脚本 |
 | [imagemagick](./imagemagick/) | 图片处理：调整大小、裁剪、格式转换、水印、合成、批处理 |
 
 ## 安装依赖

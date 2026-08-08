@@ -5,5 +5,5 @@ Skill 开发和管理类工具。
 | Skill | 用途 |
 |-------|------|
 | [dir-organizer](./dir-organizer/) | 整理和优化项目目录结构 |
-| [skill-creator](./skill-creator/) | 创建、编辑、优化 Skill，运行性能测试 |
+| [skill-creator](./skill-creator/) | 创建、编辑、优化 Skill，运行性能测试；评测与描述优化工作流见 references/ |
 | [teach](./teach/) | 在工作区内教授用户新技能或概念 |

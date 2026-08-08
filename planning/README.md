@@ -9,6 +9,7 @@
 | [sdd-brainstorm](./sdd-brainstorm/) | 轻量需求头脑风暴 — 先查代码库再讨论 |
 | [sdd-spec](./sdd-spec/) | 将讨论结论转化为结构化规格文档 + 任务拆解 |
 | [sdd-implement](./sdd-implement/) | 按 Ticket 逐个实现，复用优先，内置进度追踪 |
+| [tech-outline-planner](./tech-outline-planner/) | 技术文章/系统设计大纲规划：C-I-S-T 叙事框架 + "Given before New" 原则，输出架构评审级大纲 |
 
 ## SDD 套件设计哲学
 
