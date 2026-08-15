@@ -19,6 +19,15 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [trace-to-plan](./dev-tools/trace-to-plan/) | 反向 wayfinder：.issue 线索链多轮重入调查，多边信号交叉收敛 → ROI 决策 → 业务对齐方案 → bench 闭环 |
 | [github](./dev-tools/github/) | GitHub 平台操作：gh CLI 管理 issues / PR / CI |
 | [self-verify](./dev-tools/self-verify/) | 自验证循环：派子智能体审计工作，PASS/FAIL 裁决，失败自动重试；含 ABC 闭卷知识验证回路与堆栈追踪调试（Go/JS/Python/Rust） |
+| [excalidraw-diagram](./dev-tools/excalidraw-diagram/) | Excalidraw 图解生成：流程/架构/协议图，本地 Playwright 渲染 PNG 预览校验 |
+| [mcp-builder](./dev-tools/mcp-builder/) | MCP 服务器开发指南：Python (FastMCP) / TypeScript (MCP SDK)，含评估体系 |
+| [playwright-browser-automation](./dev-tools/playwright-browser-automation/) | 直接调用 Playwright API 的浏览器自动化：导航、交互、抓取、截图、PDF、录屏 |
+
+### [Agent 编排](./agent-orchestration/) — 多智能体团队协作
+
+| Skill | 用途 |
+|-------|------|
+| [agent-team-orchestration](./agent-orchestration/agent-team-orchestration/) | 多智能体团队编排：角色定义、任务流转、交接协议与质量门禁 |
 
 ### [媒体处理](./media-tool/) — 音视频和图片处理
 
@@ -83,6 +92,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [scientific-visualization](./science/scientific-visualization/) | 科学可视化：面向 Nature/Science/Cell 的出版级图表 |
 | [statistical-analysis](./science/statistical-analysis/) | 统计分析：全流程引导式统计分析与 APA 格式报告 |
 | [statistical-power](./science/statistical-power/) | 统计功效与样本量：研究规划的样本量和功效计算 |
+| [paper-quick-reader](./science/paper-quick-reader/) | 论文速读：三档深度（裸读/引导/精读）+ 页码级 Provenance 防幻觉 + 多篇对比，输出结构化笔记 |
 
 ### [分析工具](./analyzer/) — Skill 质量和安全分析
 
@@ -114,6 +124,16 @@ npm i -g @colbymchenry/codegraph
 # Windows: winget install GitHub.cli
 # macOS:   brew install gh
 # Linux:   sudo apt install gh
+
+# excalidraw-diagram（图解渲染）
+# 需要 uv 和 Playwright，安装步骤见 SKILL.md
+
+# playwright-browser-automation（浏览器自动化）
+npm install -g playwright
+npx playwright install chromium
+
+# paper-quick-reader（论文速读，可选依赖；纯粘贴文本输入无需安装）
+pip install pdfplumber pymupdf python-docx arxiv
 
 # ffmpeg（视频/音频处理）
 # Windows: scoop install ffmpeg  或  choco install ffmpeg

@@ -18,3 +18,4 @@
 | [scientific-visualization](./scientific-visualization/) | 科学可视化：面向 Nature/Science/Cell 的出版级图表 |
 | [statistical-analysis](./statistical-analysis/) | 统计分析：全流程引导式统计分析与 APA 格式报告 |
 | [statistical-power](./statistical-power/) | 统计功效与样本量：研究规划的样本量和功效计算 |
+| [paper-quick-reader](./paper-quick-reader/) | 论文速读：三档深度（裸读/引导/精读）+ 页码级 Provenance 防幻觉 + 多篇对比，输出结构化笔记 |
