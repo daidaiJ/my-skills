@@ -64,6 +64,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | Skill | 用途 |
 |-------|------|
 | [caveman](./context-standards/caveman/) | 压缩通信模式，减少 ~75% token 消耗 |
+| [concise-verify](./context-standards/concise-verify/) | 精要输出 + 验证兜底：先给最精简版本，细粒度标准逐条打分，低分即修（借鉴斯坦福 LLM-as-a-Verifier） |
 | [handoff](./context-standards/handoff/) | 会话交接，生成可被新 agent 继续的文档 |
 | [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文） |
 
