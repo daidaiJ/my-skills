@@ -7,6 +7,7 @@
 | [codegraph](./codegraph/) | 代码知识图谱，一次调用替代多轮 grep/read_file |
 | [mermaid](./mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
 | [code-review](./code-review/) | 双轴评审：Standards（极严格可维护性审查：code judo、1000 行红线、Fowler smells）+ Spec（忠实实现来源规格） |
+| [defect-detective](./defect-detective/) | 缺陷侦探：设计+实现+工程三轴深度审查，产出带 file:line 证据的 P0/P1/P2 分级缺陷清单 |
 | [diagnosing-bugs](./diagnosing-bugs/) | 疑难 bug 诊断：先建红绿反馈循环 → 最小化复现 → 假设 → 插桩 → 修复 + 回归测试 → 复盘 |
 | [trace-to-plan](./trace-to-plan/) | 反向 wayfinder：.issue 线索链多轮重入调查，多边信号交叉收敛 → ROI 决策 → 业务对齐方案 → bench 闭环 |
 | [github](./github/) | GitHub 平台操作：gh CLI 管理 issues / PR / CI |
