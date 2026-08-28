@@ -7,6 +7,12 @@ cli_version="$(cat "${script_dir}/VERSION")"
 module_path="github.com/JetBrains/go-modern-guidelines"
 binary_name="go-modern-guidelines"
 
+# Prefer the binary bundled in the skill directory (no download needed).
+bundled_binary="${script_dir}/../bin/${binary_name}"
+if [ -x "${bundled_binary}" ]; then
+	exec "${bundled_binary}" "$@"
+fi
+
 if [ -n "${XDG_CACHE_HOME:-}" ]; then
 	cache_root="${XDG_CACHE_HOME}/go-modern-guidelines"
 elif [ -n "${HOME:-}" ]; then

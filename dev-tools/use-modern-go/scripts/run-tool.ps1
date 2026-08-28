@@ -4,6 +4,13 @@ $cliVersion = (Get-Content -LiteralPath (Join-Path $PSScriptRoot "VERSION") -Tot
 $modulePath = "github.com/JetBrains/go-modern-guidelines"
 $binaryName = "go-modern-guidelines.exe"
 
+# Prefer the binary bundled in the skill directory (no download needed).
+$bundledBinary = Join-Path (Join-Path $PSScriptRoot "..") "bin\$binaryName"
+if (Test-Path -LiteralPath $bundledBinary -PathType Leaf) {
+    & $bundledBinary @args
+    exit $LASTEXITCODE
+}
+
 if ($env:LOCALAPPDATA) {
     $cacheRoot = Join-Path $env:LOCALAPPDATA "go-modern-guidelines"
 } else {
