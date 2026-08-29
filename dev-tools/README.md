@@ -16,3 +16,4 @@
 | [excalidraw-diagram](./excalidraw-diagram/) | Excalidraw 图解生成：流程/架构/协议图，本地 Playwright 渲染 PNG 预览校验 |
 | [mcp-builder](./mcp-builder/) | MCP 服务器开发指南：Python (FastMCP) / TypeScript (MCP SDK)，含评估体系 |
 | [playwright-browser-automation](./playwright-browser-automation/) | 直接调用 Playwright API 的浏览器自动化：导航、交互、抓取、截图、PDF、录屏 |
+| [mcp-registry-publish](./mcp-registry-publish/) | 发布 MCP server 到官方 MCP Registry：-registry 后缀 tag 显式触发、.mcpb 打包（[mcpb-tool-cli](https://github.com/daidaiJ/mcpb-tool-cli) 开源 CLI，go install 获取）、server.json 生成、OIDC 免密钥发布与验证闭环 |
