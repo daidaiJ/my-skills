@@ -14,6 +14,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 |-------|------|
 | [codegraph](./dev-tools/codegraph/) | 代码知识图谱，符号搜索/调用链追踪/变更影响分析 |
 | [graphify](./dev-tools/graphify/) | 代码知识图谱，架构级理解/社区结构/跨文件关系，含 Qwen Code 异步 hook 自动更新 |
+| [ast-grep](./dev-tools/ast-grep/) | AST 级结构化搜索与批量重构：精确匹配调用点/函数声明、排除注释与字符串误报；实测记录 Go 选择器模式解析坑与 YAML 结构规则绕过 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
 | [code-review](./dev-tools/code-review/) | 双轴评审：Standards（极严格可维护性审查：code judo、1000 行红线、Fowler smells）+ Spec（忠实实现来源规格） |
 | [use-modern-go](./dev-tools/use-modern-go/) | 现代 Go 编码规范（JetBrains 官方）：写/改 Go 代码前按 go.mod 版本拉取适用规范，避免生成过时写法；内置 Windows 二进制免下载（来源：JetBrains/go-modern-guidelines，Apache-2.0） |
@@ -129,6 +130,11 @@ npm i -g @colbymchenry/codegraph
 # Windows: winget install GitHub.cli
 # macOS:   brew install gh
 # Linux:   sudo apt install gh
+
+# ast-grep（结构化搜索/重构）
+# Windows: scoop install ast-grep，或到 GitHub Releases 下载单二进制
+# macOS:   brew install ast-grep
+# Linux:   cargo install ast-grep，或下载 release 二进制
 
 # excalidraw-diagram（图解渲染）
 # 需要 uv 和 Playwright，安装步骤见 SKILL.md
