@@ -12,7 +12,8 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 
 | Skill | 用途 |
 |-------|------|
-| [codegraph](./dev-tools/codegraph/) | 代码知识图谱，符号搜索/调用链追踪/变更影响分析 |
+| [codegraph](./dev-tools/codegraph/) | 代码知识图谱，五大能力：任务上下文/符号搜索/双向调用链/变更影响/受影响测试选择（affected） |
+| [cbm](./dev-tools/cbm/) | codebase-memory-mcp fork 架构级图谱查询（低频重型）：架构概览/复杂度热点排行/commit 影响半径，与 codegraph 分工互补 |
 | [graphify](./dev-tools/graphify/) | 代码知识图谱，架构级理解/社区结构/跨文件关系，含 Qwen Code 异步 hook 自动更新 |
 | [ast-grep](./dev-tools/ast-grep/) | AST 级结构化搜索与批量重构：精确匹配调用点/函数声明、排除注释与字符串误报；实测记录 Go 选择器模式解析坑与 YAML 结构规则绕过 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
