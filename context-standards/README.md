@@ -8,3 +8,4 @@
 | [concise-verify](./concise-verify/) | 精要输出 + 验证兜底：先给最精简版本，细粒度标准逐条打分，低分即修（借鉴斯坦福 LLM-as-a-Verifier） |
 | [handoff](./handoff/) | 会话交接，生成交接文档并保存到 `.qwen/handoff/`，新会话可直接恢复 |
 | [stop-slop](./stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文） |
+| [improve-agent-md](./improve-agent-md/) | 手动触发的指令文件优化：用 `<important if>` 条件块重写 AGENTS.md/CLAUDE.md/SKILL.md，对抗"相关性过滤"导致的指令被无视，配套裁剪原则（来源：humanlayer/skills improve-claude-md，MIT） |

@@ -17,6 +17,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [graphify](./dev-tools/graphify/) | 代码知识图谱，架构级理解/社区结构/跨文件关系，含 Qwen Code 异步 hook 自动更新 |
 | [ast-grep](./dev-tools/ast-grep/) | AST 级结构化搜索与批量重构：精确匹配调用点/函数声明、排除注释与字符串误报；实测记录 Go 选择器模式解析坑与 YAML 结构规则绕过 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
+| [show-me](./dev-tools/show-me/) | 讲解话题时强制选最小可视化形态（伪代码/调用树/组件树/文件树/Mermaid/diff），跳过铺垫直接上图（来源：humanlayer/skills，MIT） |
 | [code-review](./dev-tools/code-review/) | 双轴评审：Standards（极严格可维护性审查：code judo、1000 行红线、Fowler smells）+ Spec（忠实实现来源规格） |
 | [improve-codebase-architecture](./improve-codebase-architecture/) | 架构改进扫描：找「浅模块→深模块」的 deepening 机会，产出可视化 HTML 报告（before/after 图），选定候选后进入 grill-me 决策树；依赖同目录 codebase-design 与 domain-modeling（来源：mattpocock/skills，MIT） |
 | [codebase-design](./codebase-design/) | 深模块设计词汇表与原则（module/interface/depth/seam/adapter/leverage/locality、删除测试），设计或重构模块接口时使用（来源：mattpocock/skills，MIT） |
@@ -75,6 +76,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [concise-verify](./context-standards/concise-verify/) | 精要输出 + 验证兜底：先给最精简版本，细粒度标准逐条打分，低分即修（借鉴斯坦福 LLM-as-a-Verifier） |
 | [handoff](./context-standards/handoff/) | 会话交接，生成可被新 agent 继续的文档 |
 | [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文） |
+| [improve-agent-md](./context-standards/improve-agent-md/) | 手动触发的指令文件优化：用 `<important if>` 条件块重写 AGENTS.md/CLAUDE.md/SKILL.md，对抗"相关性过滤"导致的指令被无视（来源：humanlayer/skills，MIT） |
 
 ### [通用工具](./common/) — Skill 开发和管理
 
