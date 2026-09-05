@@ -18,6 +18,9 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [ast-grep](./dev-tools/ast-grep/) | AST 级结构化搜索与批量重构：精确匹配调用点/函数声明、排除注释与字符串误报；实测记录 Go 选择器模式解析坑与 YAML 结构规则绕过 |
 | [mermaid](./dev-tools/mermaid/) | Mermaid 图表渲染，支持 SVG 和 ASCII 输出 |
 | [code-review](./dev-tools/code-review/) | 双轴评审：Standards（极严格可维护性审查：code judo、1000 行红线、Fowler smells）+ Spec（忠实实现来源规格） |
+| [improve-codebase-architecture](./improve-codebase-architecture/) | 架构改进扫描：找「浅模块→深模块」的 deepening 机会，产出可视化 HTML 报告（before/after 图），选定候选后进入 grill-me 决策树；依赖同目录 codebase-design 与 domain-modeling（来源：mattpocock/skills，MIT） |
+| [codebase-design](./codebase-design/) | 深模块设计词汇表与原则（module/interface/depth/seam/adapter/leverage/locality、删除测试），设计或重构模块接口时使用（来源：mattpocock/skills，MIT） |
+| [domain-modeling](./domain-modeling/) | 领域建模与上下文沉淀：维护 CONTEXT.md 词汇表与 docs/adr/ 决策记录，架构对话中即时落盘（来源：mattpocock/skills，MIT） |
 | [use-modern-go](./dev-tools/use-modern-go/) | 现代 Go 编码规范（JetBrains 官方）：写/改 Go 代码前按 go.mod 版本拉取适用规范，避免生成过时写法；内置 Windows 二进制免下载（来源：JetBrains/go-modern-guidelines，Apache-2.0） |
 | [defect-detective](./dev-tools/defect-detective/) | 缺陷侦探：设计+实现+工程三轴深度审查，产出带 file:line 证据的 P0/P1/P2 分级缺陷清单 |
 | [diagnosing-bugs](./dev-tools/diagnosing-bugs/) | 疑难 bug 诊断：先建红绿反馈循环 → 最小化复现 → 假设 → 插桩 → 修复 + 回归测试 → 复盘 |
