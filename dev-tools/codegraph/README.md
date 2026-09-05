@@ -58,14 +58,14 @@ codegraph init --index <project_path>
         "hooks": [
           {
             "type": "command",
-            "command": "bash C:/Users/panda/.qwen/hooks/codegraph-init.sh",
+            "command": "bash ~/.qwen/hooks/codegraph-init.sh",
             "name": "codegraph-init",
             "description": "Initialize or incrementally update CodeGraph index on session start",
             "async": true
           },
           {
             "type": "command",
-            "command": "bash C:/Users/panda/.qwen/hooks/graphify-init.sh",
+            "command": "bash ~/.qwen/hooks/graphify-init.sh",
             "name": "graphify-init",
             "description": "Initialize or incrementally update Graphify index on session start",
             "async": true
@@ -108,7 +108,7 @@ HOOK_INPUT=$(cat)
 PROJECT_DIR=$(echo "$HOOK_INPUT" | python3 -c "import sys,json; print(json.load(sys.stdin).get('cwd',''))" 2>/dev/null || echo "")
 [ -z "$PROJECT_DIR" ] && PROJECT_DIR="$(pwd)"
 cd "$PROJECT_DIR" 2>/dev/null || exit 0
-GRAPHIFY="D:/Programs/graphify/bin/graphify.exe"   # 按本机安装位置调整
+GRAPHIFY="graphify"   # 未加入 PATH 时改为本机安装的完整路径
 [ -x "$GRAPHIFY" ] || GRAPHIFY="graphify"
 command -v "$GRAPHIFY" &>/dev/null || exit 0
 LOCK=".graphify.lock"

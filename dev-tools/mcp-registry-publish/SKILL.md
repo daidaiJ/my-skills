@@ -30,7 +30,7 @@ tools/
 ```
 
 - **mcpb CLI**：独立开源项目 [mcpb-tool-cli](https://github.com/daidaiJ/mcpb-tool-cli)（零依赖 Go 标准库，MIT）。安装：`go install github.com/daidaiJ/mcpb-tool-cli@latest`；workflow 中 `go install` 后直接调用 `mcpb` 命令；本地验证同样适用
-- **mcp-publisher**：Windows 直接用 `<skill>/tools/mcp-publisher/mcp-publisher.exe`；其他平台从 `github.com/modelcontextprotocol/registry` releases 下载（`mcp-publisher_<os>_<arch>.tar.gz`，Go 二进制非 npm 包）；下载慢/超时走代理（`HTTPS_PROXY=http://127.0.0.1:7897` 等）
+- **mcp-publisher**：Windows 直接用 `<skill>/tools/mcp-publisher/mcp-publisher.exe`；其他平台从 `github.com/modelcontextprotocol/registry` releases 下载（`mcp-publisher_<os>_<arch>.tar.gz`，Go 二进制非 npm 包）；下载慢/超时走代理（设置 `HTTPS_PROXY` 指向本地代理）
 
 ## 前置条件检查（agent 逐项确认）
 
@@ -96,7 +96,7 @@ mcpb serverjson <flags>  # 从 .mcpb 目录生成 server.json（packages 数组 
 
 ### 1. 修改 release.yml（三处）
 
-参考实现（已验证）：`D:\CODE\ai\2native-ssh-mcp\.github\workflows\release.yml`、`D:\CODE\ai\websearch-mcpserver\.github\workflows\release.yml`
+参考实现（已验证）：[daidaiJ/2native-ssh-mcp 的 release.yml](https://github.com/daidaiJ/2native-ssh-mcp/blob/HEAD/.github/workflows/release.yml)、[daidaiJ/websearch-mcpserver 的 release.yml](https://github.com/daidaiJ/websearch-mcpserver/blob/HEAD/.github/workflows/release.yml)
 
 **build job**：`if: ${{ !endsWith(github.ref_name, '-registry') }}` + mcpb 打包步骤
 
@@ -322,7 +322,7 @@ mcp-publisher publish        # 当前目录找 server.json
 12. **release notes 用 gh api 读 annotated tag message**：本地 checkout 的 lightweight tag 不可信（`%(contents)` fallback 到 commit message）；`gh release create` 前先 `delete --yes || true` 保证幂等重跑
 13. **平台矩阵 6 平台**：windows/linux/darwin × amd64/arm64（含 windows-arm64、linux-arm64），`fail-fast: false` 避免单平台失败拖垮全部
 14. **packages 条目无 platform 字段**：多平台 = 多个 packages 条目，平台信息在 mcpb manifest 的 `compatibility.platforms` 声明（schema 核对结论）
-15. **下载 mcp-publisher 慢/超时**：GitHub release 资产 CDN 可能被墙，走代理（`HTTPS_PROXY=http://127.0.0.1:7897` 等）或 `gh release download --repo modelcontextprotocol/registry`；Windows 直接用本 skill 自带二进制
+15. **下载 mcp-publisher 慢/超时**：GitHub release 资产 CDN 可能被墙，走代理（设置 `HTTPS_PROXY` 指向本地代理）或 `gh release download --repo modelcontextprotocol/registry`；Windows 直接用本 skill 自带二进制
 16. **CI 内闭环验证**：publish-registry job 在 publish 前加 `mcp-publisher validate`（失败即停，不消耗发布配额），publish 后加 curl 自验证步骤（jq 断言 name+version 已注册，失败 job 标红）——agent 无需人工盯结果
 17. **--expect-packages 防平台缺失**：serverjson 加 `--expect-packages 6`，某平台 .mcpb 缺失时本地直接报错，避免发布不完整版本
 18. **mcpb pack 自带 zip 自检**：打包后验证 zip 可读 + manifest.json/server 条目齐全，损坏产物不进入 release

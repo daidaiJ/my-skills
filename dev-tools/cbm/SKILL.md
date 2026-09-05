@@ -5,18 +5,27 @@ description: 当需要架构概览/模块聚类/复杂度热点排行（codegrap
 
 # cbm（codebase-memory-mcp fork）— 架构级图谱查询（低频重型工具）
 
-定位：**只做 codegraph 和 grep 做不了/不划算的事**。本机使用 fork 补丁版（`D:\tool-cli\codebase-memory-mcp`，已在 PATH，命令名 `codebase-memory-mcp`）；MCP 注册保持移除，全部能力走 CLI。
+定位：**只做 codegraph 和 grep 做不了/不划算的事**。使用 fork 补丁版 CLI（命令名 `codebase-memory-mcp`，安装见下节）；MCP 注册保持移除，全部能力走 CLI。
 实测依据（2026-09-05，websearch-mcpserver 三场对照实验）：
 
 - **赢的场景**：架构概览（fan-in 热点/边界权重/分层/聚类，grep 需十几次调用）、全仓函数复杂度排行（cognitive 维度 LOC 给不出）、commit 级爆炸半径（唯一 diff 驱动形态）
 - **输的场景**（别用 cbm）：单符号影响查询（codegraph impact 0.7s 全对）、单函数复杂度验真（`grep -c` 更快）、小仓库结构（`ls`+`wc -l` 两秒八成）
 
+## 安装（一次性）
+
+CLI 是单文件可执行程序，从 fork release 下载放进 PATH 即可：
+
+- release 地址：https://github.com/daidaiJ/codebase-memory-mcp/releases
+- Windows amd64：下载资产 `codebase-memory-mcp-windows-amd64.exe`，改名为 `codebase-memory-mcp.exe` 放入 PATH 目录（或 `gh release download --repo daidaiJ/codebase-memory-mcp`）
+- 其他平台：fork release 目前仅构建 windows-amd64；可从源码构建（msys2 CLANG64 环境，`scripts/build.sh`），或改用上游版（可用，但下方配方依赖的 fork 行为差异见 fork README 的 fork-patch 章节）
+- 验证：`codebase-memory-mcp --version`，`codebase-memory-mcp cli --help` 可见工具列表
+
 ## 前置
 
 - 索引由 SessionStart hook 自动维护（fast 模式：跳过嵌入/相似度/githistory）；图谱只保证**会话开始时新鲜**，会话中途的变更不追同步
-- project 名派生规则：路径分隔符 `/`→`-`，如 `D:\CODE\ai\websearch-mcpserver` → `D-CODE-ai-websearch-mcpserver`；拿不准跑 `codebase-memory-mcp cli list_projects`
+- project 名派生规则：路径分隔符 `/`→`-`，如 `C:\dev\web-app` → `C-dev-web-app`、`/home/me/work/web-app` → `-home-me-work-web-app`；拿不准跑 `codebase-memory-mcp cli list_projects`
 - fork 默认值已反转，无需手动补偿：`auto_watch=false`（不自动注册 watcher）、日志默认 `error`、内存预算封顶 2048MB、UI 不自启；Windows 缓存目录 DACL 检查**默认跳过**（属主校验保留；多用户主机才需 `CBM_DACL_HARDENING=1` 开回）
-- 缓存/配置根：`D:\tool-cli\codebase-memory-mcp\cache`（`CBM_CACHE_DIR` 已指向）；除它外没有别的 CBM 环境变量
+- 缓存/配置根：默认 `~/.cache/codebase-memory-mcp`，可用 `CBM_CACHE_DIR` 重定向（如指到本地快速盘）；除它外没有别的 CBM 环境变量
 - 每次调用冷启临时 daemon 约 5 秒——**把问题攒一批问，别一条一条聊**
 - 原始 JSON 传参有 deprecation 警告（未来版本可能移除），届时 `codebase-memory-mcp cli <tool> --help` 查 flag 形式
 

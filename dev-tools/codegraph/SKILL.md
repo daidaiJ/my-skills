@@ -48,7 +48,7 @@ codegraph context "优化数据库查询性能" --max-nodes 15 --max-code 5
 codegraph context "梳理导出逻辑" --no-code
 
 # JSON 输出便于程序解析；-p 指定其他项目路径
-codegraph context "重构缓存层" --format json -p D:/CODE/other/repo
+codegraph context "重构缓存层" --format json -p /path/to/other/repo
 ```
 
 | 参数 | 说明 |
