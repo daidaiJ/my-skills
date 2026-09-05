@@ -50,7 +50,7 @@ disable-model-invocation: true
 </important>
 
 <important if="你在 Windows 上执行 go build">
-- 临时目录指向项目内普通目录（如 GOTMPDIR=D:\proj\.gtmp），防杀软锁 %TEMP% 链接产物
+- 临时目录指向项目内普通目录（如 `GOTMPDIR=<项目本地目录>/.gtmp`），防杀软锁 %TEMP% 链接产物
 - 判断真实结果看退出码/产物文件，不看改写后的 "Success" 输出
 </important>
 
