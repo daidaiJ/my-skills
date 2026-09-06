@@ -87,7 +87,7 @@ mmdx doc.md --title "系统架构" --title-pos bottom -o out/arch.svg
 | 报错 | 性质 | 处置 |
 | --- | --- | --- |
 | `no Chrome/Edge found … --browser <path>` | 环境缺浏览器 | 装 Edge/Chrome 或 `--browser "<path-to-msedge.exe>"`（任何 Chromium 内核）；不自动下载 |
-| `svgo unavailable — writing SVG without minification` | 二进制版预期行为 | 无害：PNG 不受影响，SVG 未压缩；要压缩用源码方式跑 |
+| `svgo unavailable — writing SVG without minification` | 极罕见（svgo 已内嵌进二进制，正常不会出现） | 无害降级：PNG 不受影响，SVG 未压缩仍可用；重跑即可 |
 | `render timed out after 60s` | 资源紧张/浏览器假死 | CLI 已自动重试；仍失败重跑整条命令，持续则 `--jobs 1` 隔离 |
 | `icon pack "xxx" not found` | 网络不通（unpkg） | 去掉 `--icon` 或先联网跑一次用缓存 |
 | 中文变方块 | 不应发生（内置字体） | 检查是否 `--config`/`--theme-js` 覆盖了 fontFamily |
