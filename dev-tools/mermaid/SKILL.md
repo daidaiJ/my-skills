@@ -5,7 +5,7 @@ description: Generate and export diagrams as SVG/PNG images — Mermaid flowchar
 
 # mmdx — 图表渲染导出（mermaid / 表格 / 列表 → SVG/PNG）
 
-把 ```mermaid / ```table / ```list 围栏块渲染成高质量图片。主题、中文字体、ELK 布局、均匀留白全部内置——**不要在图代码里手工调样式，不要用 VSCode 插件**。
+把 ```mermaid / ```table / ```list / ```card 围栏块渲染成高质量图片。主题、中文字体、ELK 布局、均匀留白全部内置——**不要在图代码里手工调样式，不要用 VSCode 插件**。
 
 CLI 获取（按优先级）：
 
@@ -48,6 +48,7 @@ echo "graph LR; A[自检] --> B{通过}" | mmdx - -f png -o "$TMP/mmdx-check" --
 | 分支策略 | gitGraph | `gitGraph` + `commit` / `branch dev` / `merge` |
 | 表格 → 图片 | ```table 围栏 | GFM 管道表格原文（PNG only） |
 | 列表 → 图片 | ```list 围栏 | Markdown 嵌套列表原文（PNG only） |
+| 卡片墙 → 图片 | ```card 围栏 | 每行一卡：`emoji | 标题 | 描述`（后两者可省，PNG only） |
 
 ### 1b. 写图规则（违反是出丑的头号原因）
 
