@@ -8,7 +8,7 @@
 | [graphify](./graphify/) | 代码知识图谱，架构级理解/社区结构/跨文件关系，含 Qwen Code 异步 hook 自动更新 |
 | [ast-grep](./ast-grep/) | AST 级结构化搜索与批量重构：精确匹配调用点/函数声明、排除注释与字符串误报；实测记录 Go 选择器模式解析坑与 YAML 结构规则绕过 |
 | [cbm](./cbm/) | codebase-memory-mcp fork 架构级图谱查询（低频重型）：架构概览/复杂度热点排行/commit 影响半径，与 codegraph 分工互补；需安装 fork CLI（[release](https://github.com/daidaiJ/codebase-memory-mcp/releases) 提供 Windows amd64 二进制） |
-| [mermaid](./mermaid/) | mmdx 图表渲染导出：mermaid/表格/列表 → SVG+PNG，7 套主题 + 中文字体 + ELK 布局，批量并发、--json/--profile agent 友好（[发布产物](https://github.com/daidaiJ/mmdx/releases)） |
+| [mermaid](./mermaid/) | mmdx 图表渲染导出：20 种 mermaid 图（含 kanban/radar/treemap）+ 表格/列表/卡片 → SVG+PNG，官方变量体系主题 + 中文字体 + ELK 布局，批量并发、--json/--profile agent 友好（[发布产物](https://github.com/daidaiJ/mmdx/releases)） |
 | [show-me](./show-me/) | 讲解话题时强制选最小可视化形态（伪代码/调用树/组件树/文件树/Mermaid/diff），跳过铺垫直接上图（来源：humanlayer/skills，MIT） |
 | [code-review](./code-review/) | 双轴评审：Standards（极严格可维护性审查：code judo、1000 行红线、Fowler smells）+ Spec（忠实实现来源规格） |
 | [improve-codebase-architecture](./improve-codebase-architecture/) | 架构改进扫描：找「浅模块→深模块」的 deepening 机会，产出可视化 HTML 报告（before/after 图），选定候选后进入 grill-me 决策树；依赖同目录 codebase-design 与 domain-modeling（来源：mattpocock/skills，MIT） |

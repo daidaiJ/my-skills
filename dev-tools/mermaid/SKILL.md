@@ -1,6 +1,6 @@
 ---
 name: mermaid
-description: Generate and export diagrams as SVG/PNG images — Mermaid flowcharts (流程图), sequence (时序图), architecture (架构图), state (状态机), class (类图), ER (数据库模型), mindmap (思维导图), gantt (甘特图), pie, timeline, gitgraph, quadrant, C4, plus markdown tables/lists (表格/列表) rendered to styled images. Prefer this whenever the user mentions 图/图表/流程图/架构图/渲染/导出图片/画个图. NOT for AI image generation (文生图/照片级插图/艺术图) — that needs an image-generation model, not this skill.
+description: Generate and export diagrams as SVG/PNG images — Mermaid flowcharts (流程图), sequence (时序图), architecture (架构图), state (状态机), class (类图), ER (数据库模型), mindmap (思维导图), gantt (甘特图), pie, timeline, gitgraph, quadrant, C4, journey (用户旅程), xychart, kanban, radar, treemap, plus markdown tables/lists (表格/列表) rendered to styled images. Prefer this whenever the user mentions 图/图表/流程图/架构图/渲染/导出图片/画个图. NOT for AI image generation (文生图/照片级插图/艺术图) — that needs an image-generation model, not this skill.
 ---
 
 # mmdx — 图表渲染导出（mermaid / 表格 / 列表 → SVG/PNG）
