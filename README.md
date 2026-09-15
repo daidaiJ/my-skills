@@ -74,6 +74,8 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 |-------|------|
 | [caveman](./context-standards/caveman/) | 压缩通信模式，减少 ~75% token 消耗 |
 | [concise-verify](./context-standards/concise-verify/) | 精要输出 + 验证兜底：先给最精简版本，细粒度标准逐条打分，低分即修（借鉴斯坦福 LLM-as-a-Verifier） |
+| [i-have-adhd](./context-standards/i-have-adhd/) | ADHD 友好输出：首行给下一步行动、多步工作编号、跨轮次重述状态、压制岔题、具体时间预估、让成果可见 |
+| [show-me](./context-standards/show-me/) | 最小可视化形态选择器：按话题强制选伪代码/调用树/组件树/文件树/Mermaid/diff 之一，跳过铺垫直接上图 |
 | [handoff](./context-standards/handoff/) | 会话交接，生成可被新 agent 继续的文档 |
 | [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文） |
 | [improve-agent-md](./context-standards/improve-agent-md/) | 手动触发的指令文件优化：用 `<important if>` 条件块重写 AGENTS.md/CLAUDE.md/SKILL.md，对抗"相关性过滤"导致的指令被无视（来源：humanlayer/skills，MIT） |
