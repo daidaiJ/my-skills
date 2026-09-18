@@ -53,13 +53,15 @@ echo "graph LR; A[自检] --> B{通过}" | mmdx - -f png -o "$TMP/mmdx-check" --
 ### 1b. 写图规则（违反是出丑的头号原因）
 
 1. **节点标签 ≤ 12 个中文字（约 30 latin）**；细节放边线标签、sequence 的 note、或图下方正文（长文本自动换行约 230px，但多行节点破坏布局）
-2. 方向：流水线 `LR`，决策/状态/层级 `TD`
-3. `subgraph 分组名` 要命名，容器配色交给主题
-4. **单图 ≤ 15 节点**，更多拆"总览 + 局部"两张
-5. 不写 `style`/`classDef` 调全局色；仅强调个别节点可用 classDef
-6. sequence：参与者 ≤ 6，用 `autonumber`、`alt/else`、`loop`
-7. emoji 每图 ≤ 3 个；品牌图标 `A@{icon: logos:react}` + `--icon logos`
-8. 标题用 `--title` 注入，不手写 frontmatter
+2. **标签含括号等特殊字符必须整体加引号**：`A[开销 O(1)]` 会断在 `(` 报 Parsing error → 写成 `A["开销常数级"]` 或 `A["O(1) 开销"]`；`()`、`[]` 混套同理
+3. 方向：流水线 `LR`，决策/状态/层级 `TD`
+4. `subgraph 分组名` 要命名，容器配色交给主题
+5. **单图 ≤ 15 节点**，更多拆"总览 + 局部"两张
+6. **禁一条龙长链**：≥6 个节点串成一条线（无论 TD 还是 LR）画布会细长（窄高条/扁长条），空间利用率低，嵌进文档/HTML 难看且破坏版面 → 按阶段拆 2-4 个 `subgraph`：外层 `LR`、组内 `direction TB`，每组 2-4 节点，节点均匀分摊成块状；纯线性叙事且必须单图时改用 `timeline` 或 `list` 围栏
+7. 不写 `style`/`classDef` 调全局色；仅强调个别节点可用 classDef
+8. sequence：参与者 ≤ 6，用 `autonumber`、`alt/else`、`loop`
+9. emoji 每图 ≤ 3 个；品牌图标 `A@{icon: logos:react}` + `--icon logos`
+10. 标题用 `--title` 注入，不手写 frontmatter
 
 ### 1c. 渲染（渐进式，先低档跑通再升档）
 
@@ -79,8 +81,10 @@ mmdx doc.md --title "系统架构" --title-pos bottom -o out/arch.svg
 
 1. `--json` 核对：`failed:0` 且 `files.length === 块数 × 格式数`
 2. **Read 看生成的 PNG**，按此清单检查：文字无截断、与边框/连线对比清晰、连线不穿字、留白四边均匀、节点数超 15 则拆图
-3. 发现问题 → 改图（§1b）或调样式（§3）→ 重渲染该块（`--index N`）
-4. 最多迭代 2 轮；仍不满意与用户确认方向而不是继续盲调
+3. **sequence 图必查底部**：Note 框、生命线收尾是否完整（大字号下 mermaid 高度测算易偏小，见 §4 sequence 条目）
+4. **要嵌 HTML/PDF 的图必查宽高**：容器缩放后是否溢出/被裁（见 §5 嵌入速查）；验证溢出别用元素级截图——元素截图截的是 border box，溢出内容看不见，要用带周边余量的区域截图
+5. 发现问题 → 改图（§1b）或调样式（§3）→ 重渲染该块（`--index N`）
+6. 最多迭代 2 轮；仍不满意与用户确认方向而不是继续盲调
 
 ## 2. 错误速诊：环境问题 vs 图的问题
 
@@ -91,10 +95,19 @@ mmdx doc.md --title "系统架构" --title-pos bottom -o out/arch.svg
 | `render timed out after 60s` | 资源紧张/浏览器假死 | CLI 已自动重试；仍失败重跑整条命令，持续则 `--jobs 1` 隔离 |
 | `icon pack "xxx" not found` | 网络不通（unpkg） | 去掉 `--icon` 或先联网跑一次用缓存 |
 | 中文变方块 | 不应发生（内置字体） | 检查是否 `--config`/`--theme-js` 覆盖了 fontFamily |
-| exit 1 + `Parsing error` | **图语法错误** | 按 mermaid 行信息修图，其他块不受影响 |
+| exit 1 + `Parsing error` | **图语法错误** | 按 mermaid 行信息修图，其他块不受影响；卡在 `(`/`[` 多为标签含括号没加引号（§1b 规则 2） |
 | exit 2 | 参数用法错误 | `mmdx --help` 对照 |
 
 总原则：**exit 2 = 参数错；Parsing error = 图写错；报错关键词先查表，别盲目重装环境**。
+
+## 5. 嵌入 HTML/PDF 速查（SVG 出图后的事）
+
+把 mmdx 产物内联进 HTML 或打印成 PDF 时，四个必做处理（都是实战踩出来的）：
+
+1. **宽度约束**：mmdx 的 SVG 带固定像素 `width` 且内联 `style="max-width:none"`，直接内联会横向撑破容器 → CSS 加 `.figure svg { max-width:100% !important; height:auto !important; }`（`!important` 必须带，否则赢不过内联样式）
+2. **viewBox 检查**：没有 `viewBox` 的 SVG 无法等比缩放（CSS 压宽度 = 内容被裁）。flowchart 一般自带；发现缺失就按 `viewBox="0 0 <width> <height>"` 注入
+3. **溢出策略**：保持默认 `overflow:hidden`，靠 §3b 把 viewBox 尺寸算对——**不要用 `overflow:visible` 救裁切**，sequence 生命线画得远超 viewBox，放出来会穿透页面下方内容
+4. **PDF 分页**：打印 CSS 加 `.figure, table, pre, blockquote { break-inside: avoid; }` 和 `h2 { break-after: avoid; }`，防止图/表被页缝拦腰截断
 
 ## 3. 主题与风格定制（按改动幅度从小到大）
 
@@ -126,6 +139,15 @@ echo '{"themeVariables":{"fontSize":"17px","lineColor":"#4E5969"}}' > mq.json
 mmdx doc.md --config mq.json
 ```
 
+⚠️ **sequence 图不吃全局 fontSize**：布局计算用的是 `config.sequence.*` 专属字号（默认 16px）。要整体放大字号时必须两处同改，否则文字渲染 22px、盒子按 16px 算高 → Note 框/收尾溢出 viewBox 被裁（见 §4）：
+
+```json
+{
+  "themeVariables": { "fontSize": "22px" },
+  "sequence": { "actorFontSize": 22, "messageFontSize": 22, "noteFontSize": 22, "diagramMarginY": 20 }
+}
+```
+
 ### 3c. 整套换色（--theme-js，文件体是函数体）
 
 ```js
@@ -147,6 +169,8 @@ export default (config, ctx) => {
 ## 4. 常见坑
 
 - SVG 放非浏览器工具（Inkscape 等）文字消失 → svg 标签是 HTML 实现的，改 `-f png`
+- 画布细长（TD 窄高条 / LR 扁长条）→ 一条龙长链缺陷，见 §1b 规则 6：按阶段拆 subgraph 成块状
+- **sequence 图底部被裁**（Note 框/生命线收尾缺一截）：根因 = 全局 fontSize 没参与 sequence 布局计算，文字大盒子小 → **正解是 `config.sequence.*` 专属字号同改（见 §3b）**，viewBox 会随之算对。⚠️ 兜底手段 `svg{overflow:visible}` 慎用：sequence 的生命线画得远超 viewBox，放出来会穿透页面下方内容（表格/正文），只会更糟
 - 文字被连线压住 → 检查是否手动 `style` 改了背景，覆盖了主题的标签遮罩
 - 同名 md 导出到同一 `-o` 目录互相覆盖 → 分目录或 `--index`
 - 批量 >30 块 → `--jobs 4`（默认 2；单浏览器页池，别更高）
