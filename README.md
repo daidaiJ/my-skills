@@ -95,6 +95,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [citation-management](./science/citation-management/) | 学术引用管理：搜索论文、提取元数据、验证引用、生成 BibTeX |
 | [experimental-design](./science/experimental-design/) | 实验设计：随机化、区组、因子、交叉等方案规划 |
 | [exploratory-data-analysis](./science/exploratory-data-analysis/) | 探索性数据分析：200+ 数据格式自动检测与综合 EDA |
+| [data-visualization](./science/data-visualization/) | 数据可视化：按数据关系选图表（趋势/分布/相关/构成），Python 代码模式（matplotlib/seaborn/plotly）+ 配色与无障碍设计原则 |
 | [hypothesis-generation](./science/hypothesis-generation/) | 假说生成：从观察/数据出发构建可检验假说和验证实验 |
 | [paper-lookup](./science/paper-lookup/) | 论文检索：跨 10 个学术 API 搜索论文、预印本和开放获取全文；内置论文写作流水线（来源整理→提纲→引用规划→分节写作→整稿修订→摘要，详见 references/paper-pipeline.md） |
 | [deep-research](./science/deep-research/) | 深度研究：多轮研究方法论、状态文件跟踪、逐条引用，产出可验证的综合报告 |
@@ -188,7 +189,7 @@ uv pip install requests bibtexparser biopython crossref-commons pylatexenc
 uv pip install scholarly                   # Google Scholar（可选）
 uv pip install selenium                    # Scholar 稳定抓取（可选）
 
-# 科学可视化
+# 科学可视化 + 数据可视化（共享依赖）
 uv pip install matplotlib seaborn plotly
 
 # 探索性数据分析（按数据格式按需安装）

@@ -5,6 +5,7 @@
 | Skill | 用途 |
 |-------|------|
 | [citation-management](./citation-management/) | 学术引用管理：搜索论文、提取元数据、验证引用、生成 BibTeX |
+| [data-visualization](./data-visualization/) | 数据可视化：按数据关系选图表（趋势/分布/相关/构成），Python 代码模式（matplotlib/seaborn/plotly）+ 配色与无障碍设计原则 |
 | [experimental-design](./experimental-design/) | 实验设计：随机化、区组、因子、交叉等方案规划 |
 | [exploratory-data-analysis](./exploratory-data-analysis/) | 探索性数据分析：200+ 数据格式自动检测与综合 EDA |
 | [hypothesis-generation](./hypothesis-generation/) | 假说生成：从观察/数据出发构建可检验假说和验证实验 |
