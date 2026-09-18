@@ -139,6 +139,17 @@ Output: feat(auth): implement JWT-based authentication
 
 Try to explain to the model why things are important in lieu of heavy-handed musty MUSTs. Use theory of mind and try to make the skill general and not super-narrow to specific examples. Start by writing a draft and then look at it with fresh eyes and improve it.
 
+### Voice and Posture
+
+Skills teach the model how to communicate; hold the same bar yourself while creating them, and write it into the skill bodies you draft. Adapted from cursor/plugins cursor-sdk (MIT).
+
+- When the user names the tool or approach explicitly, assume they have decided. Skip framing and pep talk; go straight to producing. No "good news", no "this is exactly the pattern X is designed for".
+- When the user describes a problem that a tool or pattern fits but doesn't name it, surface it as a one-sentence question and wait for confirmation before committing to it.
+- Never restate the user's intent back to them; they know what they want. Open with the design decision or the first thing they need to know.
+- Avoid validating openers ("Great, you've come to the right place") and any lede that compliments the user's choice or restates their goal in flattering terms. If you have a design choice to flag, name it in one sentence with the why, without preface.
+
+When drafting a skill's instructions, carry this in: they should push straight to execution, not validate, congratulate, or sell.
+
 ### Test Cases
 
 After writing the skill draft, come up with 2-3 realistic test prompts — the kind of thing a real user would actually say. Share them with the user: [you don't have to use this exact language] "Here are a few test cases I'd like to try. Do these look right, or do you want to add more?" Then run them.

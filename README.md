@@ -32,6 +32,23 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [mcp-builder](./dev-tools/mcp-builder/) | MCP 服务器开发指南：Python (FastMCP) / TypeScript (MCP SDK)，含评估体系 |
 | [playwright-browser-automation](./dev-tools/playwright-browser-automation/) | 直接调用 Playwright API 的浏览器自动化：导航、交互、抓取、截图、PDF、录屏 |
 | [mcp-registry-publish](./dev-tools/mcp-registry-publish/) | 发布 MCP server 到官方 MCP Registry：-registry 后缀 tag 显式触发、.mcpb 打包（[mcpb-tool-cli](https://github.com/daidaiJ/mcpb-tool-cli) 开源 CLI，go install 获取）、server.json 生成、OIDC 免密钥发布与验证闭环 |
+| [verify-this](./dev-tools/verify-this/) | 可证伪验证主张：复述为可证伪形式 → baseline/treatment 同条件对比原始产物 → 三态裁决 VERIFIED / NOT VERIFIED / INCONCLUSIVE（来源：cursor/plugins，MIT） |
+| [tdd](./dev-tools/tdd/) | Bug 修复先写失败测试再修：失败在前、最小修复在后，含「何时不该写测试」的清醒边界（来源：cursor/plugins，MIT） |
+| [thermo-nuclear-review](./dev-tools/thermo-nuclear-review/) | 分支级安全与正确性审计：bug / 破坏性变更 / DevEx 回归（secrets、env、端口、脚本）/ feature-flag 泄漏，与 defect-detective（全仓三轴）互补（来源：cursor/plugins，MIT） |
+| [blast-radius](./dev-tools/blast-radius/) | 上线前破坏半径分析：找「唯一安全事实」并用真实代码证明（5 级置信阶梯），前瞻视角与 defect-detective 互补（来源：cursor/plugins，MIT） |
+| [control-cli](./dev-tools/control-cli/) | 本地 PTY/tmux harness 驱动交互式 CLI：确定性复现 bug、键盘流验证、启动/内存 profiling、终端录屏（Windows 走 PTY/WSL）（来源：cursor/plugins，MIT） |
+| [control-ui](./dev-tools/control-ui/) | 本地 Playwright/CDP harness 驱动 Web/Electron UI：截图、无障碍快照、CPU profile / 堆快照取证（来源：cursor/plugins，MIT） |
+| [cli-for-agents](./dev-tools/cli-for-agents/) | 面向 coding agent 的 CLI 设计/评审规范：非交互优先、分层 --help 带示例、stdin/管道、幂等、dry-run、机器可读成功输出（来源：cursor/plugins，MIT） |
+| [principle-type-system-discipline](./dev-tools/principle-type-system-discipline/) | 工程原则卡：非法状态不可表示、brand 语义原语、外部数据边界解析、穷尽变体、从权威 schema 派生 |
+| [principle-prove-it-works](./dev-tools/principle-prove-it-works/) | 工程原则卡：用真实产物验证（跑功能/读实际值/查 diff），不信代理指标与自我汇报 |
+| [principle-laziness-protocol](./dev-tools/principle-laziness-protocol/) | 工程原则卡：偏向删除与最小变更，平坦调用层级，合并决策点，堵小泄漏 |
+| [principle-encode-lessons-in-structure](./dev-tools/principle-encode-lessons-in-structure/) | 工程原则卡：重复指令编码为 lint/脚本/运行时检查等机制，而非更多文字 |
+| [principle-foundational-thinking](./dev-tools/principle-foundational-thinking/) | 工程原则卡：先定数据结构再写逻辑，脚手架先行，并发共享先隔离 |
+| [principle-sequence-verifiable-units](./dev-tools/principle-sequence-verifiable-units/) | 工程原则卡：拆成各自可验证的小单元串行推进，提交顺序即论证 |
+| [principle-never-block-on-the-human](./dev-tools/principle-never-block-on-the-human/) | 工程原则卡：可逆工作不阻塞等人，事后纠偏；确认只留给不可逆操作 |
+| [principle-boundary-discipline](./dev-tools/principle-boundary-discipline/) | 工程原则卡：校验与错误处理集中在系统边界，内部纯函数信任类型 |
+
+> principle-* 8 张卡来源：cursor/plugins pstack（MIT），条件触发式原则卡，正文纯提示词零依赖。
 
 ### [Agent 编排](./agent-orchestration/) — 多智能体团队协作
 
@@ -77,7 +94,8 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [i-have-adhd](./context-standards/i-have-adhd/) | ADHD 友好输出：首行给下一步行动、多步工作编号、跨轮次重述状态、压制岔题、具体时间预估、让成果可见 |
 | [show-me](./context-standards/show-me/) | 最小可视化形态选择器：按话题强制选伪代码/调用树/组件树/文件树/Mermaid/diff 之一，跳过铺垫直接上图 |
 | [handoff](./context-standards/handoff/) | 会话交接，生成可被新 agent 继续的文档 |
-| [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文） |
+| [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文）；含 unslop 扩展目录（references/unslop-rules.md，稳定编号规则，来源：cursor/plugins，MIT） |
+| [show-me-your-work](./context-standards/show-me-your-work/) | 长任务/无人值守运行的决策日志：TSV 一行一决策（决策/理由/证据指针/结果），追加式可审计，含日志-转录核对与跨模型审查回路（来源：cursor/plugins，MIT） |
 | [improve-agent-md](./context-standards/improve-agent-md/) | 手动触发的指令文件优化：用 `<important if>` 条件块重写 AGENTS.md/CLAUDE.md/SKILL.md，对抗"相关性过滤"导致的指令被无视（来源：humanlayer/skills，MIT） |
 
 ### [通用工具](./common/) — Skill 开发和管理
@@ -117,6 +135,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [skill-security-analyzer](./analyzer/skill-security-analyzer/) | Skill 安全扫描：检测 40+ 恶意模式（命令注入、YAML 注入、数据泄露、时间炸弹、typosquatting 等） |
 | [project-analyzer](./analyzer/project-analyzer/) | 项目架构深度分析：基于 codegraph 理解模块 + DevOps 扫描，生成 7 章中文白皮书（架构/模块/流程/质量/部署/二次开发） |
 | [doc-reviewer](./analyzer/doc-reviewer/) | 技术文档四维评审：大纲 / 内容 / 资产链接 / 格式，独立运行、按需加载规则集 |
+| [technical-writing](./analyzer/technical-writing/) | 四层技术写作标准：Diátaxis 模式选择 + Google developer style 句式 + STE 单句承载 + Global English 消歧，覆盖 docs/RFC/README/PR 描述/commit message（来源：cursor/plugins，MIT） |
 
 ## 安装
 

@@ -1,6 +1,11 @@
 ---
 name: stop-slop
 description: Use when drafting, editing, or reviewing prose to eliminate predictable AI writing patterns. Detects filler phrases, formulaic structures, passive constructions, vague declaratives, and rhythm monotony. Supports both English and Chinese text.
+provenance:
+  origin: cursor-plugins (fusion: unslop extended catalog absorbed into stop-slop)
+  license: MIT
+  upstream_url: https://github.com/cursor/plugins/tree/main/pstack/skills/unslop
+  maintained_by: my-skills
 ---
 
 # Stop Slop
@@ -37,6 +42,10 @@ Before delivering prose, scan for these. Fix any that appear.
 | Narrator-from-a-distance | Put the reader in the scene |
 | Meta-joiners ("The rest of this essay...") | Delete |
 
+## Extended Catalog
+
+After the quick checks, scan [references/unslop-rules.md](references/unslop-rules.md) — the numbered pattern catalog (AI vocabulary, superficial -ing phrases, colon/bold overuse, inline-header lists, abstract metaphor nouns, over-compression, and more) merged from the unslop skill. Rule numbers are stable ids other skills cite; when merging in a new offender, append it there with the next free number.
+
 ## Scoring
 
 Rate 1-10 on each dimension. Below 35/50: revise.
@@ -55,3 +64,4 @@ Rate 1-10 on each dimension. Below 35/50: revise.
 - [references/structures.md](references/structures.md) — Structures to avoid (contrasts, fragmentation, false agency, rhythm)
 - [references/examples.md](references/examples.md) — Before/after transformations
 - [references/ai-patterns-zh.md](references/ai-patterns-zh.md) — 中文 AI 写作模式（高频词、套话句式、句式结构）
+- [references/unslop-rules.md](references/unslop-rules.md) — Extended numbered catalog (来源：cursor/plugins unslop，MIT)

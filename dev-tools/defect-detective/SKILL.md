@@ -69,6 +69,13 @@ argument-hint: "[可选] 审查重点：design | impl | engineering | all（默�
 - 本机跑不了的检查（race detector / sanitizer / 其他平台）CI 有没有补位？
 - 测试质量：测的是纯函数还是最易错的状态机与并发路径？集成测试如何隔离？
 
+### 范围边界
+
+纯可维护性/结构简化审查（code judo、1000 行红线、spaghetti 增长、抽象质量）由
+`code-review` skill 的 Standards 轴负责，本 skill 不重复覆盖；三轴只在这些问题
+影响正确性/缺陷时纳入（异常大文件按阶段 1 规则优先精读）。分支级安全审计
+（breaking changes / devex 回归 / feature-flag 泄漏）用 `thermo-nuclear-review`。
+
 ## 阶段 3：运行验证
 
 能跑的全跑：build、vet、test、`-race`（注意平台限制）、lint。
