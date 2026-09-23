@@ -15,4 +15,6 @@
 
 | 文件 | 说明 |
 |------|------|
-| [`SKILL.md`](SKILL.md) | 完整 skill 指南（存储结构、双层结构、AGENTS.md 标准、执行流程、进度格式、验证核验清单） |
+| [`SKILL.md`](SKILL.md) | 核心指南：存储结构、双层结构、12 节模板、AGENTS.md 摘要块标准、执行流程 |
+| [`references/progress-formats.md`](references/progress-formats.md) | 可选：三种进度格式（Todo / 检查清单 / 量化描述） |
+| [`references/verification.md`](references/verification.md) | 可选：验证核验清单 + 未验证事项填写规则 |
