@@ -1,31 +1,199 @@
 ---
 name: handoff
-description: Compact the current conversation into a handoff document for another agent to pick up.
-argument-hint: "What will the next session be used for?"
+description: >
+  会话交接器：把当前会话的工作进度固化为下一个会话可以自动关联的 handoff 记录，
+  并通过 AGENTS.md 的入口摘要块实现跨会话无缝接续。
+  触发场景：用户说"handoff"、"交接"、"下个会话回来要继续"、"先存一下进度"，
+  或任何意图把当前会话未完成任务保存下来供后续会话继续的表述。
+  不要直接写文件，严格遵循本技能的双层结构组织任务记录。
+argument-hint: "下个会话要做什么？"
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work.
+# Handoff — 跨会话任务交接
 
-## Save location
+## 目标
 
-Save to `.qwen/handoff/` under the current project root directory.
+让下个会话进入工作空间就能接续之前会话交接的任务；任务完成后自动从 `AGENTS.md` 中摘除关联摘要块，不留死链接。
 
-- If `.qwen/handoff/` does not exist, create it.
-- Filename format: `YYYY-MM-DD-<short-slug>.md` (e.g. `2026-06-15-db-refactor.md`).
-- If a file with the same name already exists, append a numeric suffix: `-2`, `-3`, etc.
+---
 
-## Content rules
+## 核心原则
 
-- Include a "suggested skills" section in the document, which suggests skills that the agent should invoke.
-- Do not duplicate content already captured in other artifacts (PRDs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
-- Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
-- If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.
+| 原则 | 说明 |
+|------|------|
+| **项目隔离** | handoff 只属于单个项目，始终存放在项目根目录下的 `.handoff/` 子目录，禁止写入任何全局路径或仓库外路径 |
+| **双层结构** | 详情层（完整 handoff 文档）＋ 入口摘要层（AGENTS.md 里的精简引用块），两层互相引用 |
+| **不重复存储** | handoff 通过引用复用 wiki 资产，wiki 里已有的内容不重复抄录，只放指针 |
+| **隐私不记录** | 用户的密钥、token、私密配置等隐私数据不写入 handoff |
+| **最新即真理** | handoff 内容每次写入时覆盖旧值，保证信息始终是最新的 |
+| **完成后清理** | 任务完成后从 `AGENTS.md` 摘除摘要块，并告知用户 |
 
-## Resuming in a new session
+---
 
-Add the following note at the bottom of every handoff document:
+## 存储结构
+
+```
+项目根目录/
+├── .handoff/                          # 项目专属 handoff 目录（不加入 git）
+│   ├── README.md                      # 目录说明
+│   └── <任务名>-<日期戳>.md            # 单个任务 handoff 文档
+│
+└── AGENTS.md                          # Agent 入口文件，嵌入 handoff 摘要引用块
+```
+
+### 文件名约定
+
+```
+<任务名短横线化>-<YYYYMMDD>.md
+```
+
+- 同一任务进度更新时复用同一文件（覆盖写入），保持文件名不变。
+- 如果同一个项目同时存在多个活跃任务，每个任务各占一个文件。
+
+---
+
+## 双层结构
+
+### 第一层：详情层 — `.handoff/<任务名>-<日期戳>.md`
+
+这是完整的任务交接文档，供 Agent 重建上下文时按需全文读取。  
+**每个文件必须包含以下所有节，不可省略。**
 
 ```markdown
 ---
-> To resume: read this file in your new session, then follow the suggested skills.
+handoff_id: <任务名>
+updated_at: <ISO 8601 时间戳>
+status: active | completed | blocked
+---
+
+## 1. 目标
+
+一句话说明这个任务要达成什么。
+
+## 2. 当前进度与状态
+
+- **当前阶段：** <描述>
+- **状态：** in-progress / blocked / done
+- **进度百分比（可选）：** <数字>%
+
+> 💡 进度格式可选：Todo 列表 / 检查清单 / 量化描述。详见 [references/progress-formats.md](references/progress-formats.md)。
+
+## 3. 关键证据
+
+- <用一句话或一句话列表描述当前最重要的发现或数据>
+- 如果有日志、截图、API 响应等，放在代码块里
+
+## 4. 排查方向（仅 debug 任务）
+
+<当前怀疑方向、已排除方向、下一步验证步骤>
+
+## 5. 验收标准
+
+- [ ] <可验证的标准 1>
+- [ ] <可验证的标准 2>
+
+> ⚠️ 明确标注为验证的事项不得在下个会话中默认其为已完成。详见 [references/verification.md](references/verification.md)。
+
+## 6. 后续待完成的任务和步骤
+
+1. <步骤 1，按执行顺序列出>
+2. <步骤 2>
+3. …
+
+## 7. 资产与使用说明
+
+| 资产 | 路径 / 引用 | 用途 |
+|------|------------|------|
+| 脚本 | `scripts/xxx.sh` | <说明> |
+| 配置 | `.env.example` | <说明> |
+| Wiki | `wiki/xxx.md` | <说明> |
+
+> ⚠️ wiki 资产只写引用路径，不抄录内容。
+
+## 8. 注意事项
+
+- **已踩过的坑：** <之前流程中犯的错和应对方法>
+- **用户认同的稳定执行流程：** <用户口头确认过的有效做法，原文记录>
+- **环境限制：** <约束、依赖、版本要求>
+
+## 9. 用户偏好
+
+- <用户口头澄清的内容，强调并原文记录>
+
+## 10. 建议使用的 Skill 和 MCP
+
+- **Skill：** <建议 skill 名及简短理由>
+- **MCP：** <建议 MCP 服务器及简短使用建议>
+- **运行时建议：** <简短执行建议，如顺序、并行方式>
+
+## 11. 用户下个会话聚焦重点
+
+- <本次会话用户 arguments 中明确提到的后续重点，用于裁剪下次会话的上下文>
+
+## 12. 明确标注为验证的事项（未完成勿删）
+
+> ⚠️ 以下事项**尚未完成验证**，下个会话不得默认其为已完成。
+
+- [ ] <验证项 1>
+- [ ] <验证项 2>
 ```
+
+---
+
+### 第二层：入口摘要层 — `AGENTS.md` 中的 handoff 引用块
+
+在每个需要关联 handoff 的项目 `AGENTS.md` 中嵌入以下格式的摘要块。  
+**每个活跃任务对应一个块**，任务完成后删除对应块。
+
+```markdown
+## 🔄 Handoff 摘要
+
+### <任务名> — <状态>
+
+- **当前状态：** <in-progress / blocked / done>
+- **关键证据：** <一句话关键证据>
+- **验收标准：** <一句话说明已完成的验收标准，或写"见 handoff 详情" >
+- **详情指针：** [`.handoff/<任务名>-<日期戳>.md`](.handoff/<任务名>-<日期戳>.md)
+- **遗留清理命令（可选）：**
+  ```bash
+  <清理残留的命令，如删除临时文件、停止后台进程>
+  ```
+```
+
+**格式要求：**
+- 最少有一句以上内容关联 handoff。
+- 包含当前状态、关键证据一句话、验收标准。
+- 通过相对路径引用 handoff 详情文件，不抄录全文。
+- 可引用建议的 skill 和 MCP，但不再重复存储已关联资产的内容。
+- 明确标注为验证的事项要列出来，让下个会话知道哪些还没做完。
+
+---
+
+## Agent 执行流程
+
+### 写入 handoff（保存进度）
+
+当用户意图是保存当前任务进度时，Agent 执行以下步骤：
+
+1. **读取 `AGENTS.md`**：确认文件中是否已有该任务的摘要块。
+2. **确认 `.handoff/` 目录存在**：不存在则创建。
+3. **写入完整 handoff 文档**：按上方第一层模板填充内容，覆盖旧文件。内容必须是当前最新状态，不复制历史旧的错误信息。
+4. **写入或更新 `AGENTS.md` 摘要块**：按上方第二层格式插入或更新摘要块。
+5. **告知用户**：确认文件已写入，并告知 handoff 位置。
+
+### 恢复 / 继续任务
+
+当用户说"恢复"、"继续"、"完成之前"、"遗留"、"剩下的"、"交接的任务"等意图时，Agent 执行以下步骤：
+
+1. **读取 `AGENTS.md`**：找到所有 handoff 摘要块，识别活跃（`active` / `in-progress`）任务。
+2. **按主题和相关性检索 `.handoff/`**：根据用户当前意图和摘要块中的关键词，定位最相关的 handoff 文档。
+3. **重建上下文**：全文读取匹配的 handoff 文档，将详情呈现给用户或直接用于继续执行。
+4. **继续执行**：按 handoff 中的步骤顺序继续工作。
+
+### 完成清理（自动摘除）
+
+当 Agent 确认任务已全部完成并通过验收标准时，执行以下步骤：
+
+1. **从 `AGENTS.md` 中删除该任务的摘要块**。
+2. **将 handoff 文档的 `status` 字段改为 `completed`**（可选归档，不删除）。
+3. **告知用户**：`"✅ 任务 <任务名> 已完成，AGENTS.md 中的摘要引用块已清除。"`
