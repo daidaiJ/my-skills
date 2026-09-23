@@ -35,8 +35,7 @@ argument-hint: "下个会话要做什么？"
 ```
 项目根目录/
 ├── .handoff/                          # 项目专属 handoff 目录（不加入 git）
-│   ├── README.md                      # 目录说明
-│   └── <任务名>-<日期戳>.md            # 单个任务 handoff 文档
+│   └── <任务名>.md                     # 单个任务 handoff 文档
 │
 └── AGENTS.md                          # Agent 入口文件，嵌入 handoff 摘要引用块
 ```
@@ -44,7 +43,7 @@ argument-hint: "下个会话要做什么？"
 ### 文件名约定
 
 ```
-<任务名短横线化>-<YYYYMMDD>.md
+<任务名短横线化>.md
 ```
 
 - 同一任务进度更新时复用同一文件（覆盖写入），保持文件名不变。
@@ -54,7 +53,7 @@ argument-hint: "下个会话要做什么？"
 
 ## 双层结构
 
-### 第一层：详情层 — `.handoff/<任务名>-<日期戳>.md`
+### 第一层：详情层 — `.handoff/<任务名>.md`
 
 这是完整的任务交接文档，供 Agent 重建上下文时按需全文读取。  
 **每个文件必须包含以下所有节，不可省略。**
@@ -62,7 +61,6 @@ argument-hint: "下个会话要做什么？"
 ```markdown
 ---
 handoff_id: <任务名>
-updated_at: <ISO 8601 时间戳>
 status: active | completed | blocked
 ---
 
@@ -161,7 +159,7 @@ status: active | completed | blocked
 - **当前状态：** <in-progress / blocked / done>
 - **关键证据：** <一句话关键证据>
 - **验收标准：** <一句话说明已完成的验收标准，或写"见 handoff 详情" >
-- **详情指针：** [`.handoff/<任务名>-<日期戳>.md`](.handoff/<任务名>-<日期戳>.md)
+- **详情指针：** [`.handoff/<任务名>.md`](.handoff/<任务名>.md)
 - **遗留清理命令（可选）：**
   ```bash
   <清理残留的命令，如删除临时文件、停止后台进程>
