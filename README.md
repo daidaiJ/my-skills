@@ -39,6 +39,7 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [control-cli](./dev-tools/control-cli/) | 本地 PTY/tmux harness 驱动交互式 CLI：确定性复现 bug、键盘流验证、启动/内存 profiling、终端录屏（Windows 走 PTY/WSL）（来源：cursor/plugins，MIT） |
 | [control-ui](./dev-tools/control-ui/) | 本地 Playwright/CDP harness 驱动 Web/Electron UI：截图、无障碍快照、CPU profile / 堆快照取证（来源：cursor/plugins，MIT） |
 | [cli-for-agents](./dev-tools/cli-for-agents/) | 面向 coding agent 的 CLI 设计/评审规范：非交互优先、分层 --help 带示例、stdin/管道、幂等、dry-run、机器可读成功输出（来源：cursor/plugins，MIT） |
+| [model-params](./dev-tools/model-params/) | 模型参数与价格速查：curl + jq 查 OpenRouter 与 models.dev 两个公开目录，确认上下文/tool call/structured output/reasoning 档位与每 1M token 价格，支持按实时汇率折算人民币（四个国内外免 key 汇率源）；免安装免 key（[modelq](https://github.com/daidaiJ/modelq) 配套单 skill） |
 | [principle-type-system-discipline](./dev-tools/principle-type-system-discipline/) | 工程原则卡：非法状态不可表示、brand 语义原语、外部数据边界解析、穷尽变体、从权威 schema 派生 |
 | [principle-prove-it-works](./dev-tools/principle-prove-it-works/) | 工程原则卡：用真实产物验证（跑功能/读实际值/查 diff），不信代理指标与自我汇报 |
 | [principle-laziness-protocol](./dev-tools/principle-laziness-protocol/) | 工程原则卡：偏向删除与最小变更，平坦调用层级，合并决策点，堵小泄漏 |
@@ -168,6 +169,9 @@ npm i -g @colbymchenry/codegraph
 # Windows: scoop install ast-grep，或到 GitHub Releases 下载单二进制
 # macOS:   brew install ast-grep
 # Linux:   cargo install ast-grep，或下载 release 二进制
+
+# model-params（模型参数与价格速查）
+# 仅需 curl 和 jq（一般已预装；Windows: scoop install jq，macOS: brew install jq）
 
 # excalidraw-diagram（图解渲染）
 # 需要 uv 和 Playwright，安装步骤见 SKILL.md

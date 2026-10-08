@@ -15,6 +15,7 @@
 | [codebase-design](./codebase-design/) | 深模块设计词汇表与原则（module/interface/depth/seam/adapter/leverage/locality、删除测试），设计或重构模块接口时使用（来源：mattpocock/skills，MIT） |
 | [domain-modeling](./domain-modeling/) | 领域建模与上下文沉淀：维护 CONTEXT.md 词汇表与 docs/adr/ 决策记录，架构对话中即时落盘（来源：mattpocock/skills，MIT） |
 | [use-modern-go](./use-modern-go/) | 现代 Go 编码规范（JetBrains 官方）：写/改 Go 代码前按 go.mod 版本拉取适用规范，避免生成过时写法；内置 Windows 二进制免下载（来源：JetBrains/go-modern-guidelines，Apache-2.0） |
+| [model-params](./model-params/) | 模型参数与价格速查：curl + jq 查 OpenRouter 与 models.dev 两个公开目录，确认上下文/tool call/structured output/reasoning 档位与每 1M token 价格，支持按实时汇率折算人民币（四个国内外免 key 汇率源）；免安装免 key（[modelq](https://github.com/daidaiJ/modelq) 配套） |
 | [defect-detective](./defect-detective/) | 缺陷侦探：设计+实现+工程三轴深度审查，产出带 file:line 证据的 P0/P1/P2 分级缺陷清单 |
 | [diagnosing-bugs](./diagnosing-bugs/) | 疑难 bug 诊断：先建红绿反馈循环 → 最小化复现 → 假设 → 插桩 → 修复 + 回归测试 → 复盘 |
 | [trace-to-plan](./trace-to-plan/) | 反向 wayfinder：.issue 线索链多轮重入调查，多边信号交叉收敛 → ROI 决策 → 业务对齐方案 → bench 闭环 |
