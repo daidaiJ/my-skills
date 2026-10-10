@@ -1,6 +1,6 @@
 # My Skills
 
-Qwen Code 自定义 Skill 集合，按用途分类组织。
+兼容 Agent Skills 格式的自定义 Skill 集合（Qwen Code、Grok CLI 等支持 Agent Skills 的工具通用），按用途分类组织。
 
 > **仓库定位**：引导 AI 更好、更高效、更省 token 地完成工作（效率工具库）。
 > 不收录 ACG 创作类技能；凡依赖 LLM API 或外部服务 API 才能完成工作的技能不入库。
@@ -12,16 +12,15 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 
 | Skill | 用途 |
 |-------|------|
-| [codegraph](./dev-tools/codegraph/) | 代码知识图谱，五大能力：任务上下文/符号搜索/双向调用链/变更影响/受影响测试选择（affected） |
+| [codegraph](./dev-tools/codegraph/) | 代码知识图谱，五大能力：任务上下文/符号搜索/双向调用链/变更影响/受影响测试选择（affected），一次调用替代多轮 grep/read_file |
 | [cbm](./dev-tools/cbm/) | codebase-memory-mcp fork 架构级图谱查询（低频重型）：架构概览/复杂度热点排行/commit 影响半径，与 codegraph 分工互补；需安装 fork CLI（[release](https://github.com/daidaiJ/codebase-memory-mcp/releases) 提供 Windows amd64 二进制） |
 | [graphify](./dev-tools/graphify/) | 代码知识图谱，架构级理解/社区结构/跨文件关系，含 Qwen Code 异步 hook 自动更新 |
 | [ast-grep](./dev-tools/ast-grep/) | AST 级结构化搜索与批量重构：精确匹配调用点/函数声明、排除注释与字符串误报；实测记录 Go 选择器模式解析坑与 YAML 结构规则绕过 |
 | [mermaid](./dev-tools/mermaid/) | mmdx 图表渲染导出：20 种 mermaid 图（含 kanban/radar/treemap）+ 表格/列表/卡片 → SVG+PNG，官方变量体系主题 + 中文字体 + ELK 布局，批量并发、--json/--profile agent 友好（[发布产物](https://github.com/daidaiJ/mmdx/releases)） |
-| [show-me](./dev-tools/show-me/) | 讲解话题时强制选最小可视化形态（伪代码/调用树/组件树/文件树/Mermaid/diff），跳过铺垫直接上图（来源：humanlayer/skills，MIT） |
 | [code-review](./dev-tools/code-review/) | 双轴评审：Standards（极严格可维护性审查：code judo、1000 行红线、Fowler smells）+ Spec（忠实实现来源规格） |
-| [improve-codebase-architecture](./improve-codebase-architecture/) | 架构改进扫描：找「浅模块→深模块」的 deepening 机会，产出可视化 HTML 报告（before/after 图），选定候选后进入 grill-me 决策树；依赖同目录 codebase-design 与 domain-modeling（来源：mattpocock/skills，MIT） |
-| [codebase-design](./codebase-design/) | 深模块设计词汇表与原则（module/interface/depth/seam/adapter/leverage/locality、删除测试），设计或重构模块接口时使用（来源：mattpocock/skills，MIT） |
-| [domain-modeling](./domain-modeling/) | 领域建模与上下文沉淀：维护 CONTEXT.md 词汇表与 docs/adr/ 决策记录，架构对话中即时落盘（来源：mattpocock/skills，MIT） |
+| [improve-codebase-architecture](./dev-tools/improve-codebase-architecture/) | 架构改进扫描：找「浅模块→深模块」的 deepening 机会，产出可视化 HTML 报告（before/after 图），选定候选后进入 grill-me 决策树；依赖同目录 codebase-design 与 domain-modeling（来源：mattpocock/skills，MIT） |
+| [codebase-design](./dev-tools/codebase-design/) | 深模块设计词汇表与原则（module/interface/depth/seam/adapter/leverage/locality、删除测试），设计或重构模块接口时使用（来源：mattpocock/skills，MIT） |
+| [domain-modeling](./dev-tools/domain-modeling/) | 领域建模与上下文沉淀：维护 CONTEXT.md 词汇表与 docs/adr/ 决策记录，架构对话中即时落盘（来源：mattpocock/skills，MIT） |
 | [use-modern-go](./dev-tools/use-modern-go/) | 现代 Go 编码规范（JetBrains 官方）：写/改 Go 代码前按 go.mod 版本拉取适用规范，避免生成过时写法；内置 Windows 二进制免下载（来源：JetBrains/go-modern-guidelines，Apache-2.0） |
 | [defect-detective](./dev-tools/defect-detective/) | 缺陷侦探：设计+实现+工程三轴深度审查，产出带 file:line 证据的 P0/P1/P2 分级缺陷清单 |
 | [diagnosing-bugs](./dev-tools/diagnosing-bugs/) | 疑难 bug 诊断：先建红绿反馈循环 → 最小化复现 → 假设 → 插桩 → 修复 + 回归测试 → 复盘 |
@@ -93,11 +92,11 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 | [caveman](./context-standards/caveman/) | 压缩通信模式，减少 ~75% token 消耗 |
 | [concise-verify](./context-standards/concise-verify/) | 精要输出 + 验证兜底：先给最精简版本，细粒度标准逐条打分，低分即修（借鉴斯坦福 LLM-as-a-Verifier） |
 | [i-have-adhd](./context-standards/i-have-adhd/) | ADHD 友好输出：首行给下一步行动、多步工作编号、跨轮次重述状态、压制岔题、具体时间预估、让成果可见 |
-| [show-me](./context-standards/show-me/) | 最小可视化形态选择器：按话题强制选伪代码/调用树/组件树/文件树/Mermaid/diff 之一，跳过铺垫直接上图 |
-| [handoff](./context-standards/handoff/) | 会话交接，生成可被新 agent 继续的文档 |
+| [show-me](./context-standards/show-me/) | 最小可视化形态选择器：按话题强制选伪代码/调用树/组件树/文件树/Mermaid/diff 之一，跳过铺垫直接上图（来源：humanlayer/skills 的 show-me，MIT） |
+| [handoff](./context-standards/handoff/) | 会话交接：把进度固化为 `.handoff/` 双层记录（详情卡 + `AGENTS.md` ≤10 行摘要块），新会话自动接续；`.handoff/` 默认 gitignore，按需开启 git 同步即可跨设备接力 |
 | [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文）；含 unslop 扩展目录（references/unslop-rules.md，稳定编号规则，来源：cursor/plugins，MIT） |
 | [show-me-your-work](./context-standards/show-me-your-work/) | 长任务/无人值守运行的决策日志：TSV 一行一决策（决策/理由/证据指针/结果），追加式可审计，含日志-转录核对与跨模型审查回路（来源：cursor/plugins，MIT） |
-| [improve-agent-md](./context-standards/improve-agent-md/) | 手动触发的指令文件优化：用 `<important if>` 条件块重写 AGENTS.md/CLAUDE.md/SKILL.md，对抗"相关性过滤"导致的指令被无视（来源：humanlayer/skills，MIT） |
+| [improve-agent-md](./context-standards/improve-agent-md/) | 手动触发的指令文件优化：用 `<important if>` 条件块重写 AGENTS.md/CLAUDE.md/SKILL.md，对抗"相关性过滤"导致的指令被无视，配套四条精简原则（来源：humanlayer/skills 的 improve-claude-md，MIT） |
 
 ### [通用工具](./common/) — Skill 开发和管理
 
@@ -140,11 +139,12 @@ Qwen Code 自定义 Skill 集合，按用途分类组织。
 
 ## 安装
 
-将 Skill 目录复制到 `~/.qwen/skills/` 下即可使用。
+将 Skill 目录复制到所用工具的 skills 目录下即可使用：Qwen Code 为 `~/.qwen/skills/`，Grok CLI 为 `~/.grok/skills/`。
 
 ```bash
 # 示例：安装 codegraph skill
 cp -r dev-tools/codegraph ~/.qwen/skills/codegraph
+cp -r dev-tools/codegraph ~/.grok/skills/codegraph
 ```
 
 ### 外部依赖
