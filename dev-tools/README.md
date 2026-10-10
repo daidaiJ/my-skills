@@ -5,7 +5,7 @@
 | Skill | 用途 |
 |-------|------|
 | [codegraph](./codegraph/) | 代码知识图谱，五大能力：任务上下文/符号搜索/双向调用链/变更影响/受影响测试选择（affected），一次调用替代多轮 grep/read_file |
-| [cbm](./cbm/) | codebase-memory-mcp fork 架构级图谱查询（低频重型）：架构概览/复杂度热点排行/commit 影响半径，与 codegraph 分工互补；需安装 fork CLI（[release](https://github.com/daidaiJ/codebase-memory-mcp/releases) 提供 Windows amd64 二进制） |
+| [cbm](./cbm/) | codebase-memory-mcp fork 架构级图谱查询（低频重型）：架构概览/复杂度热点排行/commit 影响半径，与 codegraph 分工互补；CLI 全量 17 工具或 MCP 最小 4 工具面（同一份预索引图谱）；需安装 fork CLI（[release](https://github.com/daidaiJ/codebase-memory-mcp/releases) 提供 Windows amd64 二进制） |
 | [graphify](./graphify/) | 代码知识图谱，架构级理解/社区结构/跨文件关系，含 Qwen Code 异步 hook 自动更新 |
 | [ast-grep](./ast-grep/) | AST 级结构化搜索与批量重构：精确匹配调用点/函数声明、排除注释与字符串误报；实测记录 Go 选择器模式解析坑与 YAML 结构规则绕过 |
 | [mermaid](./mermaid/) | mmdx 图表渲染导出：20 种 mermaid 图（含 kanban/radar/treemap）+ 表格/列表/卡片 → SVG+PNG，官方变量体系主题 + 中文字体 + ELK 布局，批量并发、--json/--profile agent 友好（[发布产物](https://github.com/daidaiJ/mmdx/releases)） |
