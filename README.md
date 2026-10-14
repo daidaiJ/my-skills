@@ -62,6 +62,7 @@
 |-------|------|
 | [ffmpeg](./media-tool/ffmpeg/) | 视频/音频处理：合并、裁剪、转码、提取帧/音频、GIF、字幕；内置视频合并（merge_videos.py）与字幕烧录（burn_subtitles.py）脚本 |
 | [imagemagick](./media-tool/imagemagick/) | 图片处理：调整大小、裁剪、格式转换、水印、合成、批处理 |
+| [md2video-audio](./media-tool/md2video-audio/) | Markdown 一键转带真人配音的 MP4 口播视频：Marp 渲染幻灯片 + Edge-TTS 语音合成；串行流水线（优化稿→展示稿→口播稿）带分页校验与降级方案（来源：anthropics/skills PR #1703，非商业许可） |
 
 ### [办公工具](./office-tool/) — 文档处理全家桶
 
@@ -192,6 +193,12 @@ pip install pdfplumber pymupdf python-docx arxiv
 # Windows: scoop install imagemagick  或  choco install imagemagick
 # macOS:   brew install imagemagick
 # Linux:   sudo apt install imagemagick
+
+# md2video-audio（Markdown 转口播视频；依赖 ffmpeg，见上）
+pip install edge-tts moviepy markdown
+npm install -g @marp-team/marp-cli
+# 注意：Edge-TTS 依赖微软非官方免费端点，仅供个人非商业用途，可能失效
+# 详见 media-tool/md2video-audio/SKILL.md
 
 # skill-security-analyzer（安全扫描）
 # 需要 Python 3.8+，依赖已内置（PyYAML）
