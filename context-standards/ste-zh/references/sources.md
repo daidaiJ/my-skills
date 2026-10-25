@@ -37,7 +37,9 @@
 | 8 Punctuation and word count | 禁用分号（8.1）、字数计算（8.4 到 8.7） | R2.2（分号不算断句，等于要求拆句）、附录 A |
 | 9 Writing practices | 短语动词、写法一致 | R1.1、R1.5 |
 
-英文有、中文不需要的规则：动词形态限制（-ing、过去分词）、冠词、时态、词性限定。中文有、英文没有的规则见 [rules.md](./rules.md) 附录 B。
+英文有、中文不需要的规则：动词形态限制（-ing、过去分词）、冠词、时态、词性限定。
+
+中文有、英文没有的规则：「进行」类名词化结构、长定语、「以上」「以下」的端点歧义、「可以」的许可与能力歧义、「打开」「启动」「启用」的对象限定、省略主语、无标记被动、相对时间、开放列举。症状与改法表见 [rules.md](./rules.md) 开头一节。
 
 ## 四、阈值来源
 
@@ -57,6 +59,8 @@ STE 的数字按英文的「词」算，不能直接换成中文的「字」。�
 | [ruanyf/document-style-guide](https://github.com/ruanyf/document-style-guide) | 标题、段落、数值、标点、文档结构 | 互补。本 skill 不管排版 |
 | [yikeke/zh-style-guide](https://github.com/yikeke/zh-style-guide) | 语言风格、标点、文档元素 | 互补 |
 | [Fenng/Tech-Doc-Style-Chinese](https://github.com/Fenng/Tech-Doc-Style-Chinese) | 事实保真、改写流程、术语排版 | 互补。它明确不把句长做成硬规则，本 skill 做这部分 |
+
+排版、标点、标题层级、文档结构交给上面这些项目。本 skill 只做它们没做的三件事：编号规则、受控词表、可自动检查的句法约束。
 
 ## 六、可选的检查工具
 
@@ -80,3 +84,4 @@ python3 simplified-technical-chinese/tools/check.py 文档.md --kind 描述
 - 没有阅读理解对照实验。引用的是误报率校准，不是读者的理解速度和出错率。
 - 词表约 120 条，只覆盖通用技术写作。项目术语应按项目自己的术语表处理。
 - 规则里有几条只能人工判断：长定语、指代是否清楚、术语选得对不对、步骤里的警告与原因。
+- 本 skill 不内置检查脚本。要逐条扫文件，用第六部分的工具。
