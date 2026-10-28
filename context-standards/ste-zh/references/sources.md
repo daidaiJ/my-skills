@@ -1,6 +1,6 @@
 # 来源、映射与局限
 
-抓取日期：2026-10-25。标注「已核验」的条目来自原文或标准正文；标注「未核验」的只有二手摘要。
+抓取日期：2026-10-25。2026-10-28 补入 [dualface/ste-zh](https://github.com/dualface/ste-zh) 的对照。标注「已核验」的条目来自原文或标准正文；标注「未核验」的只有二手摘要。
 
 ## 一、为什么做这个
 
@@ -27,19 +27,21 @@
 
 | STE 节 | 规则要点 | 本规范 |
 | --- | --- | --- |
-| 1 Words | 只用批准词，一词一义、一词性 | R1.1、R1.6 |
+| 1 Words | 只用批准词，一词一义、一词性 | R1.1、R1.6、R1.9、R1.10 |
 | 2 Multi-word nouns | 多词名词不超过 3 个词 | R2.8（中文改限制名词前的修饰语长度） |
 | 3 Verbs | 只用批准动词形式，-ing 不作动词，不用短语动词 | R1.2、R1.7（中文无词形变化，改用「禁止名词化」） |
 | 4 Sentences | 句长上限、一句一事、主动语态、祈使句、不靠省略成分缩短句子 | R2.1 到 R2.4 |
 | 5 Procedural writing | 操作句 20 词内、祈使句、一步一动作、条件在前 | R2.3、R2.5、R4.1 |
 | 6 Descriptive writing | 描述句 25 词内、一段一事、一段 6 句内 | R2.1、R3.1、R3.2 |
 | 7 Safety instructions | 安全指令以明确的命令或条件开头 | R4.2 |
-| 8 Punctuation and word count | 禁用分号（8.1）、字数计算（8.4 到 8.7） | R2.2（分号不算断句，等于要求拆句）、附录 A |
+| 8 Punctuation and word count | 禁用分号（8.1）、字数计算（8.4 到 8.7） | R2.2（分号不算断句，等于要求拆句）、R6.5、附录 A |
 | 9 Writing practices | 短语动词、写法一致 | R1.1、R1.5 |
 
 英文有、中文不需要的规则：动词形态限制（-ing、过去分词）、冠词、时态、词性限定。
 
 中文有、英文没有的规则：「进行」类名词化结构、长定语、「以上」「以下」的端点歧义、「可以」的许可与能力歧义、「打开」「启动」「启用」的对象限定、省略主语、无标记被动、相对时间、开放列举。症状与改法表见 [rules.md](./rules.md) 开头一节。
+
+R7（事实与证据）不来自 STE。它来自 [dualface/ste-zh](https://github.com/dualface/ste-zh) 的状态词与验证要求，按中文文档场景改写。
 
 ## 四、阈值来源
 
@@ -56,6 +58,7 @@ STE 的数字按英文的「词」算，不能直接换成中文的「字」。�
 | 项目 | 管什么 | 与本 skill 的关系 |
 | --- | --- | --- |
 | [mzopedia/simplified-technical-chinese](https://github.com/mzopedia/simplified-technical-chinese)（STC，0.2） | 40 条编号规则、约 170 条受控词表、零依赖 Python 检查脚本、给 agent 的 SKILL.md | 同一思路的独立实现。本 skill 的规则集按 agent 输出重写，句长阈值引用它的校准数据；要逐条扫文件用它的 `tools/check.py` |
+| [dualface/ste-zh](https://github.com/dualface/ste-zh) | agent 向用户汇报：10 个固定状态词（已完成 / 已验证 / 未验证 / 未确认 / 阻塞…）、按回复类型的输出模板、术语表与自检清单 | 互补。它管「Agent 怎么向用户汇报」，本 skill 管「中文技术内容怎么写」。本 skill 的 R7 借用它的事实保真与验证状态要求；状态词、汇报模板、进度说明仍由它这类 skill 提供，本 skill 不重复 |
 | [ruanyf/document-style-guide](https://github.com/ruanyf/document-style-guide) | 标题、段落、数值、标点、文档结构 | 互补。本 skill 不管排版 |
 | [yikeke/zh-style-guide](https://github.com/yikeke/zh-style-guide) | 语言风格、标点、文档元素 | 互补 |
 | [Fenng/Tech-Doc-Style-Chinese](https://github.com/Fenng/Tech-Doc-Style-Chinese) | 事实保真、改写流程、术语排版 | 互补。它明确不把句长做成硬规则，本 skill 做这部分 |
@@ -83,5 +86,6 @@ python3 simplified-technical-chinese/tools/check.py 文档.md --kind 描述
 
 - 没有阅读理解对照实验。引用的是误报率校准，不是读者的理解速度和出错率。
 - 词表约 120 条，只覆盖通用技术写作。项目术语应按项目自己的术语表处理。
+- 不管 agent 向用户汇报的状态词、进度说明与输出模板。需要时叠加 dualface/ste-zh 一类的汇报类 skill。
 - 规则里有几条只能人工判断：长定语、指代是否清楚、术语选得对不对、步骤里的警告与原因。
 - 本 skill 不内置检查脚本。要逐条扫文件，用第六部分的工具。

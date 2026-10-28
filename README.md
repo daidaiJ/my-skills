@@ -93,7 +93,7 @@
 | [caveman](./context-standards/caveman/) | 压缩通信模式，减少 ~75% token 消耗 |
 | [concise-verify](./context-standards/concise-verify/) | 精要输出 + 验证兜底：先给最精简版本，细粒度标准逐条打分，低分即修（借鉴斯坦福 LLM-as-a-Verifier） |
 | [i-have-adhd](./context-standards/i-have-adhd/) | ADHD 友好输出：首行给下一步行动、多步工作编号、跨轮次重述状态、压制岔题、具体时间预估、让成果可见 |
-| [ste-zh](./context-standards/ste-zh/) | 简明技术中文：借鉴 ASD-STE100 的受控中文写作规则（一词一义、句长上限、一句一事、祈使句、条件在前），按中文歧义来源重写（名词化、长定语、「以上」端点、「可以」的许可与能力、省略主语）；给出与 i-have-adhd（结构层）、caveman（压缩层）的三层分工、冲突裁决顺序与不可压缩清单（方法来源：ASD-STE100；句长阈值引用 mzopedia/simplified-technical-chinese 校准） |
+| [ste-zh](./context-standards/ste-zh/) | 简明技术中文：借鉴 ASD-STE100 的受控中文写作规则（一词一义、句长上限、一句一事、祈使句、条件在前），按中文歧义来源重写（名词化、长定语、「以上」端点、「可以」的许可与能力、省略主语）；给出与 i-have-adhd（结构层）、caveman（压缩层）的三层分工、冲突裁决顺序与不可压缩清单；含「事实与证据」一组规则（来源可定位、引用一字不改、区分未验证与未确认）（方法来源：ASD-STE100；句长阈值引用 mzopedia/simplified-technical-chinese 校准；事实与证据参考 dualface/ste-zh） |
 | [show-me](./context-standards/show-me/) | 最小可视化形态选择器：按话题强制选伪代码/调用树/组件树/文件树/Mermaid/diff 之一，跳过铺垫直接上图（来源：humanlayer/skills 的 show-me，MIT） |
 | [handoff](./context-standards/handoff/) | 会话交接：把进度固化为 `.handoff/` 双层记录（详情卡 + `AGENTS.md` ≤10 行摘要块），新会话自动接续；`.handoff/` 默认 gitignore，按需开启 git 同步即可跨设备接力 |
 | [stop-slop](./context-standards/stop-slop/) | 移除 AI 写作模式，让文本更自然（支持中英文）；含 unslop 扩展目录（references/unslop-rules.md，稳定编号规则，来源：cursor/plugins，MIT） |
